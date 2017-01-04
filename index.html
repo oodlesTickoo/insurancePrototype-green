@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='TTRApp'>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Retirement Adequacy Calculator</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/nouislider.min.css">
+    <link rel="stylesheet" href="css/custom-green.css">
+    <link rel="stylesheet" href="css/custom2-green.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="bower_components/angularPrint/angularPrint.css">
+    <link rel="stylesheet" href="css/font-awesome-animation.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
+</head>
+
+<body ng-cloak ng-controller="TTRController">
+    <div print-remove class="container" style="display: block;" >
+        <div class="row page-heading ">
+            <div class="col-xs-12 " style="background: #565656;">    
+                <img src="images/logo.png" class="img-responsive" alt="">               
+                <button data-toggle="modal" data-target="#myModal1" class=" feedback-menu" style="">Your Feedback</button> 
+            </div>
+        </div>
+        <div class="row page-heading ">
+            <div class="col-xs-12 " style="background: radial-gradient(#8cc63e,#6d9b2e);">
+                <div class=" title-bar ">
+                    Retirement Adequacy Calculator                    
+                </div>                
+            </div>
+        </div>
+        <div class="row page-content" id="inputs">
+            <div class="col-xs-12 col-sm-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="row head-banner visible-xs">
+                            <img src="images/header-image.jpg" class="img-responsive" alt="">
+                        </div>
+                        <div class="row banner-wrapper display-table">
+                            <div class="banner-text display-table-cell vertical-align-middle text-center">
+                                <h2>Are Your Savings Adequate?</h2>
+                                <p>The Retirement Adequacy Calculator is a tool designed to help you determine whether you and your partner's retirement savings will provide you the retirement that you both want to enjoy.</p>
+                            </div>
+                            <div class="header-banner display-table-cell vertical-align-middle "><img src="images/header-image.jpg" class="img-responsive" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+                <form class="ttrForm" name="forms.ttrForm" ng-submit="calculateFinal(forms.ttrForm.$valid,true) " novalidate>
+                    <div class="row boxes tell-us" id="tell-us" >
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-user"></i>
+                                <p class="visible-xs details-xs">
+                                    Tell Us About Yourself :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Tell Us About Yourself : 
+                            </h2>
+                            <div class="form-group row">
+                                <label for="first-name" class="col-xs-6 col-md-4 col-form-label">First Name *</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <input type="text" class="form-control" name="firstName" ng-model="personalDetails.firstName" id="first-name" placeholder="First Name" ng-pattern="/^[a-zA-Z\s]*$/" required>
+                                </div>
+                                <div class=" col-xs-6 col-md-4 err-div" ng-show="!forms.ttrForm.firstName.$pristine && forms.ttrForm.firstName.$invalid">
+                                    <p class="err-msg">Please provide a valid first name.</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="last-name" class="col-xs-6 col-md-4 col-form-label">Last Name *</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <input type="text" class="form-control" name="lastName" id="last-name" placeholder="Last Name" ng-model="personalDetails.lastName" ng-pattern="/^[a-zA-Z\s]*$/" required>
+                                </div>
+                                <div class="col-xs-6 col-md-4 err-div" ng-show="!forms.ttrForm.lastName.$pristine && forms.ttrForm.lastName.$invalid">
+                                    <p class="err-msg">Please provide a valid last name.</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select-gender-option" class="col-xs-6 col-md-4 col-form-label">
+                                    Gender</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <select class="selectpicker" id="select-gender-option" title="Choose An Option">
+                                        <option value="0" selected>Male</option>
+                                        <option value="1">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="dob" class="col-xs-6 col-md-4 col-form-label">Date Of Birth</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" name="dob" id="dobText" onClick="this.select();" class="standard-input form-control dob-input" show-button-bar="false" uib-datepicker-popup="{{format}}" ng-model="dob" is-open="popup1.opened" datepicker-options="dateOptions" required close-text="Close" ng-blur="ageChange()" />
+                                        <span class="input-group-addon" ng-click="open1()">
+                                 <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-xs-6 col-md-4 col-form-label">Email Address *</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="personalDetails.email" required>
+                                </div>
+                                <div class="col-xs-6 col-md-4 err-div" ng-show="(!forms.ttrForm.email.$pristine && forms.ttrForm.email.$invalid)">
+                                    <p class="err-msg">Enter a valid email address</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="mobile-num" class="col-xs-6 col-md-4 col-form-label">Mobile Number *</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <input type="number" class="form-control mob-input" id="mobile-num" placeholder="mobile" ng-model="personalDetails.mobile" name="mobile" ng-pattern="/^(04)\d{8}$/g" required>
+                                </div>
+                                <div class="col-xs-6 col-md-4 err-div" ng-show="(!forms.ttrForm.mobile.$pristine && forms.ttrForm.mobile.$invalid)">
+                                    <p class="err-msg">Enter a valid mobile number</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="postal-code" class="col-xs-6 col-md-4 col-form-label">Postal Code </label>
+                                <div class="col-xs-6 col-md-4">
+                                    <input type="number" ng-minlength="4" ng-maxlength="4" class="form-control postal-code" id="postal-code" name="postalCode" ng-model="personalDetails.postalCode" placeholder="Postal Code">
+                                </div>
+                                <div class="col-xs-6 col-md-4 err-div" ng-show="!forms.ttrForm.postalCode.$pristine &&forms.ttrForm.postalCode.$invalid">
+                                    <p class="err-msg">Enter a valid 4-Digit postal code</p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select-spouse-option" class="col-xs-6 col-md-4 col-form-label">
+                                    Do You Have A Spouse</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <select class="selectpicker" id="select-spouse-option" title="Choose An Option">
+                                        <option value=0>Yes</option>
+                                        <option value=1>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="spouseOption">
+                                <label for="select-gender-option-spouse" class="col-xs-6 col-md-4 col-form-label">
+                                    Spouse Gender</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <select class="selectpicker" id="select-gender-option-spouse" title="Choose An Option">
+                                        <option value="0" selected>Female</option>
+                                        <option value="1">Male</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="spouseOption">
+                                <label for="dob" class="col-xs-6 col-md-4 col-form-label">Spouse's Date Of Birth</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" name="dobSpouse" id="dobTextSpouse" onClick="this.select();" class="standard-input form-control dob-input" show-button-bar="false" uib-datepicker-popup="{{format}}" ng-model="dobSpouse" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close" ng-blur="ageChange2()" />
+                                        <span class="input-group-addon" ng-click="open2()">
+                                 <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select-house-option" class="col-xs-6 col-md-4 col-form-label">
+                                    Do You Own A House</label>
+                                <div class="col-xs-6 col-md-4">
+                                    <select class="selectpicker" id="select-house-option" title="Choose An Option">
+                                        <option value="0">Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row boxes account-details" >
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-pie-chart"></i>
+                                <p class="visible-xs details-xs">
+                                    Your Account Details :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Your Account Details :
+                            </h2>
+                            <div class="form-group row">
+                                <label for="annualSalaryInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Annual Salary</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="annualSalarySlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" class="form-control" id="annualSalaryInput" name="annualSalaryInput" ng-model="annualSalary">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="superBalanceInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Super Balance</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="superBalanceSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="superBalanceInput" name="superBalanceInput" ng-model="superBalance">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="salarySacrificeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Salary Sacrifice</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="salarySacrificeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="salarySacrificeInput" name="salarySacrificeInput" ng-model="salarySacrifice">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Assumptions :</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="insurancePremiumInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Insurance Premium per year</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="insurancePremiumSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="insurancePremiumInput" name="insurancePremiumInput" ng-model="insurancePremium">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="investmentReturnInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Investment Return</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="investmentReturnSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="investmentReturnInput" name="investmentReturnInput" ng-model="investmentReturn">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="variableFeeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Variable Fee</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="variableFeeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="variableFeeInput" name="variableFeeInput" ng-model="variableFee">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fixedFeeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Fixed Fee</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="fixedFeeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="fixedFeeInput" name="fixedFeeInput" ng-model="fixedFee">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="employerContributionLevelInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Employer Contribution Level</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="employerContributionLevelSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="employerContributionLevelInput" name="employerContributionLevelInput" ng-model="employerContributionLevel">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inflationInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Inflation</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="inflationSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="inflationInput" name="inflationInput" ng-model="inflation">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="wageIncreaseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Wage Increase</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="wageIncreaseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="wageIncreaseInput" name="wageIncreaseInput" ng-model="wageIncrease">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Pension Related Details :</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="retirementAgeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Retirement Age</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="retirementAgeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="retirementAgeInput" name="retirementAgeInput" ng-model="retirementAge">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="pensionStartInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Pension Start Age</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="pensionStartSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="pensionStartInput" name="pensionStartInput" ng-model="pensionStart">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select-pension-drawdown" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Drawdown Value</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <select class="selectpicker" id="select-pension-drawdown" title="Choose An Option">
+                                        <option value="0" selected>Select Your Own Value</option>
+                                        <option value="1">Minimum Pension Only</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="showPensionOption">
+                                <label for="pensionDrawdownBaseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Drawdown Base</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="pensionDrawdownBaseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="pensionDrawdownBaseInput" name="pensionDrawdownBaseInput" ng-model="pensionDrawdownBase">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="targetInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Target Income</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="targetSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="targetInput" name="targetInput" ng-model="target">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="row boxes spouse-account-details"  ng-show="spouseOption">
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-user"></i>
+                                <p class="visible-xs details-xs">
+                                    Spouse's Account Details :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10 col-xs-12 contents" >
+                            <h2 class="hidden-xs">Spouse's Account Details :</h2>
+                            <div class="form-group row">
+                                <label for="annualSalarySpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Annual Salary</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="annualSalarySpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="annualSalarySpouseInput" name="annualSalarySpouseInput" ng-model="annualSalarySpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="superBalanceSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Super Balance</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="superBalanceSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="superBalanceSpouseInput" name="superBalanceSpouseInput" ng-model="superBalanceSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="salarySacrificeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Salary Sacrifice</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="salarySacrificeSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="salarySacrificeSpouseInput" name="salarySacrificeSpouseInput" ng-model="salarySacrificeSpouse">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Assumptions :</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="insurancePremiumSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Insurance Premium per year</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="insurancePremiumSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="insurancePremiumSpouseInput" name="insurancePremiumSpouseInput" ng-model="insurancePremiumSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="investmentReturnSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Investment Return</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="investmentReturnSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="investmentReturnSpouseInput" name="investmentReturnSpouseInput" ng-model="investmentReturnSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="variableFeeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Variable Fee</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="variableFeeSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="variableFeeSpouseInput" name="variableFeeSpouseInput" ng-model="variableFeeSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fixedFeeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Fixed Fee</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="fixedFeeSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="fixedFeeSpouseInput" name="fixedFeeSpouseInput" ng-model="fixedFeeSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="employerContributionLevelSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Employer Contribution Level</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="employerContributionLevelSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="employerContributionLevelSpouseInput" name="employerContributionLevelSpouseInput" ng-model="employerContributionLevelSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inflationSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Inflation</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="inflationSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="inflationSpouseInput" name="inflationSpouseInput" ng-model="inflationSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="wageIncreaseSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Wage Increase</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="wageIncreaseSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="wageIncreaseSpouseInput" name="wageIncreaseSpouseInput" ng-model="wageIncreaseSpouse">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Pension Related Details :</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="retirementAgeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Retirement Age</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="retirementAgeSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="retirementAgeSpouseInput" name="retirementAgeSpouseInput" ng-model="retirementAgeSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="pensionStartSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Start</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="pensionStartSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="pensionStartSpouseInput" name="pensionStartSpouseInput" ng-model="pensionStartSpouse">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="select-pension-drawdown-spouse" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Drawdown Value</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <select class="selectpicker" id="select-pension-drawdown-spouse" title="Choose An Option">
+                                        <option value="0" selected>Select Your Own Value</option>
+                                        <option value="1">Minimum Pension Only</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="showPensionOptionSpouse">
+                                <label for="pensionDrawdownBaseSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Drawdown Base</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="pensionDrawdownBaseSpouseSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="pensionDrawdownBaseSpouseInput" name="pensionDrawdownBaseSpouseInput" ng-model="pensionDrawdownBaseSpouse">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row boxes other-assets" id="other-assets-div" >
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-usd"></i>
+                                <p class="visible-xs details-xs">
+                                    Other Assets :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">Other Assets : </h2>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Asset:</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="homeContentsInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Home Contents</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="homeContentsSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="homeContentsInput" name="homeContentsInput" ng-model="homeContents">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="vehicleCostInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Vehicle Cost</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="vehicleCostSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="vehicleCostInput" name="vehicleCostInput" ng-model="vehicleCost">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="investmentPropertyInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Investment Property</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="investmentPropertySlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="investmentPropertyInput" name="investmentPropertyInput" ng-model="investmentProperty"> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Investments:</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="bankAssetsInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Bank Investment</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="bankAssetsSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="bankAssetsInput" name="bankAssetsInput" ng-model="bankAssets">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="listedInvestmentInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Listed Investment</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="listedInvestmentSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="listedInvestmentInput" name="listedInvestmentInput" ng-model="listedInvestment">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="marginLoansInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Margin Loans</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="marginLoansSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="marginLoansInput" name="marginLoansInput" ng-model="marginLoans">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="allocatedPensionInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Allocated Pension</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="allocatedPensionSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="allocatedPensionInput" name="allocatedPensionInput" ng-model="allocatedPension">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="otherInvestmentInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Other Investment</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="otherInvestmentSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="otherInvestmentInput" name="otherInvestmentInput" ng-model="otherInvestment">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
+                            <div class="row intrnl-head">
+                                <div class="col-xs-12">
+                                    <h4>Income:</h4>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="netRentalIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Net Rental Income</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="netRentalIncomeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="netRentalIncomeInput" name="netRentalIncomeInput" ng-model="netRentalIncome">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="otherIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Other Income</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="otherIncomeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="otherIncomeInput" name="otherIncomeInput" ng-model="otherIncome">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="pensionIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Pension Income</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="pensionIncomeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="pensionIncomeInput" name="pensionIncomeInput" ng-model="pensionIncome">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row calculate-row contents">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-block submit-button" type="submit">Calculate Your Results</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row boxes general-details " >                    
+                    <div class="col-sm-2 col-xs-12" >
+                        <div class="icon-container">
+                            <i class="fa fa-lightbulb-o"></i>
+                            <p class="visible-xs details-xs">
+                                GENERAL ADVICE NOTICE:
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-12 contents" >
+                        <h2 class="hidden-xs heading">GENERAL ADVICE NOTICE:</h2>
+                        <p class="sub-para">If you choose to use our calculators then you are doing so under the general advice rules. This will apply to your superannuation account as well as your savings without providing personal advice. If you want to enlist the services of an adviser that is able to construct a full financial plan for you then please click on the <strong>Your Feedback</strong> button on top of the page.</p>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <div class="row result-content" id="results" style="display: none">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row" >
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 save-print-row" >
+                        <div class="save-button" id="download">
+                            <a class="save"><span class="fa fa-file-pdf-o icon"><span class="sr-only">Save</span>&nbsp;</span>Save</a>
+                        </div>
+                        <div class="print-button print-doc">
+                            <a class="print js-btn-print"><span class="fa fa-print icon"><span class="sr-only">Print</span>&nbsp;</span>Print</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row result-summary">
+                    <div class="col1 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+                        <div class="col1-d1 img-responsive">
+                            <div>{{resultPerc.perc}} %</div>
+                        </div>
+                        <div class="col1-d2">of your goal has been met</div>
+                    </div>
+                    <div class="col2 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+                        <div>Your retirement savings goal:</div>
+                        <div class="col2-d1">{{resultPerc.target|currency}}</div>
+                        <div>Your projected savings:</div>
+                        <div class="col2-d2">{{resultPerc.achieved|currency}}</div>
+                        <div class="line-divider"></div>
+                        <div ng-show="!surplusOption"><i class="fa fa-exclamation-circle"></i>You still need to save:</div>
+                        <div ng-show="surplusOption"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
+                        <div class="col2-d3">{{resultPerc.diff|currency}}</div>
+                    </div>
+                    <div class="col3 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
+                        <div class="col3-d1" ng-show="!surplusOption && !mediumOption"><strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong></div>
+                        <div class="col3-d1" ng-show="!surplusOption && mediumOption"><strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.</div>
+                        <div class="col3-d1" ng-show="surplusOption"><strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.</div>
+                        <div class="col3-d2"><strong>Speak with an advisor today</strong> to find out how your age and lifestyle can affect your savings plan.</div>
+                    </div>
+                </div>
+                <div class="row result-details boxes" >
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-12" >
+                                <div class="icon-container">
+                                    <i class="fa fa-user"></i>
+                                    <p class="visible-xs details-xs">
+                                        EXPLORE YOUR SAVINGS:
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-xs-12" >
+                                <h2 class="hidden-xs heading">EXPLORE YOUR SAVINGS:</h2>
+                                <p class="sub-para hidden-xs">We've increased your registered retirement savings contributions to show you how you can reach your goal. Now try adjusting some of the other numbers below.</p>
+                            </div>
+                        </div>
+                        <div class="row result-contents" style="margin-top:25px;" >
+                            <div class="col-xs-12 col-sm-7 col-md-7 chart-container">
+                                <div class="row chart-buttons-row" style="margin-bottom:25px" print-remove>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="row hidden-xs">
+                                            <div class="col-sm-6 col-md-6" style="padding-right: 5px;">
+                                                <button class="btn btn-primary btn-block chart-button" id="bar-chart" ng-disabled="chartOneOpen">Super Balance Projection</button>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6" style="padding-left: 5px;">
+                                                <button class="btn btn-primary btn-block chart-button" id="area-chart" description" ng-disabled="!chartOneOpen">Income Stream Analysis</button>
+                                            </div>
+                                        </div>
+                                        <div class="row visible-xs" style="margin-top:10px;">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 small-buttons">
+                                                <button class="btn btn-primary chart-xs-btn" id="bar-chart-m" title="Super Balance Projection" ng-disabled="chartOneOpen"><i class="fa fa-bar-chart"></i></button>
+                                                <button class="btn btn-primary chart-xs-btn" id="area-chart-m" title="Income Stream Analysis" ng-disabled="!chartOneOpen"><i class="fa fa-area-chart"></i></button>
+                                                <div class="start-over-button" style="display:inline-block;position:relative;top:2px;float:right"><a class="start-over" href="javascript:void(0);" ng-click="resetSliders()"><span class="fa fa-refresh icon"><span class="sr-only">Start over</span>&nbsp;</span>Start over</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" id="chartBox">
+                                        <div id="container" style="display:block; height:100%"></div>
+                                        <div id="containerA" style="display:none; height:100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-5 col-md-5">
+                                <div class="row hidden-xs" style="margin-bottom:25px;margin-right: 0px;">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+                                        <div class="start-over-button"><a class="start-over"
+                                         href="javascript:void(0);" ng-click="resetSliders()"><span class="fa fa-refresh icon"><span class="sr-only">Start over</span>&nbsp;</span>Start over</a></div>
+                                    </div>
+                                </div>
+                                <div class="row value-container">
+                                    <div class="col-sm-12 col-md-12 col-xs-12">
+                                        <div class="row title-div" ng-click="menuDrop1();">
+                                            <div class="col-xs-12 display-table">
+                                                <div class="display-table-cell " style="width: 10%; padding-left: 10px;">
+                                                <i class="fa fa-caret-down button caret1-down"  aria-hidden="true"></i>
+                                                <i class="fa fa-caret-right button caret1-right" style="display: none" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="title-wrapper display-table-cell " style=" display:inline-block;">Quick Changes</div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="row form-1" ng-class="{menuDrop: isMenuDrop1}">
+                                            <div class="col-xs-12">
+                                                <div class="row result-labels hidden-xs">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Annual Salary
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="annualSalarySliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Annual Salary</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="annualSalaryInputNew" name="annualSalaryInputNew" ng-model="annualSalaryNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                       Spouse's Annual Salary
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table" ng-show="spouseOption">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="annualSalarySpouseSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Spouse's Annual Salary</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="annualSalarySpouseInputNew" name="annualSalarySpouseInputNew" ng-model="annualSalarySpouseNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Super Balance
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="superBalanceSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Super Balance</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="superBalanceInputNew" name="superBalanceInputNew" ng-model="superBalanceNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Spouse's Super Balance
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table" ng-show="spouseOption">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="superBalanceSpouseSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Spouse's Super Balance</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="superBalanceSpouseInputNew" name="superBalanceSpouseInputNew" ng-model="superBalanceSpouseNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Retirement Age
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="retirementAgeSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Retirement Age</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="retirementAgeInputNew" name="retirementAgeInputNew" ng-model="retirementAgeNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Spouse's Retirement Age
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table" ng-show="spouseOption">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="retirementAgeSpouseSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Spouse's Retirement Age</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="retirementAgeSpouseInputNew" name="retirementAgeSpouseInputNew" ng-model="retirementAgeSpouseNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Target Income
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table">
+                                                    <div class="display-table-cell hidden-xs vertical-align-middle">
+                                                        <div class="slider-div-new" id="targetSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Target Income</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="targetInputNew" name="targetInput" ng-model="targetNew">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>                                    
+                                </div>
+                                <div class="row assumptions-div">
+                                    <div class="col-xs-12">
+                                        <label data-toggle="modal" data-target="#myModal2" >Assumptions</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row boxes general-details-results " >
+                    <div class="col-sm-2 col-xs-12" >
+                        <div class="icon-container">
+                            <i class="fa fa-lightbulb-o"></i>
+                            <p class="visible-xs details-xs">
+                                GENERAL ADVICE NOTICE:
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-12 contents" >
+                        <h2 class="hidden-xs heading">GENERAL ADVICE NOTICE:</h2>
+                        <p class="sub-para">If you choose to use our calculators then you are doing so under the general advice rules. This will apply to your superannuation account as well as your savings without providing personal advice. If you want to enlist the services of an adviser that is able to construct a full financial plan for you then please click on the <strong>Your Feedback</strong> button on top of the page.</p>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Website Feedback</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>All feedback that you provide is collected by Advisor Dashboard. Your feedback will be used on a non-identifiable basis by Advisor Dashboard to help improve your website experience.</label>
+                        <label>What is your reason for visiting this website?</label>
+                        <input type="text" onClick="this.select();" name="feebackReasonId" id="feebackReasonId" ng-model="feebackReason">
+                        <label>Did you find everything you were looking in this calculator?</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>I already knew the result.
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> The result was helpful.
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">I still need help.
+                            </label>
+                        </div>
+                        <label>How did you like the overall experience?</label>
+                        <div class="radio-div">
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Worse
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Bad
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" checked> Neutral
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Good
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Great
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <img src="images/client-logo.png">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default submt-btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Assumptions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ol>
+                            <li>
+                                The Superannuation Guarantee (SG) contribution is at the rate of 9.5% of ordinary time earnings.
+                            </li>
+                            <li>
+                                The tax rate for taxable income of superannuation in accumulation phase is 15%, including on concessional contributions and income generated.
+                            </li>
+                            <li>
+                                Members will convert the accumulation balance into pension at the nominated pension start age. All contributions will be converted into the pension at the beginning of the next financial year.
+                            </li>
+                            <li>
+                                Salaries are indexed at the wage index level if there is any.
+                            </li>
+                            <li>
+                                Member is able to select the base pension drawdown amount or just withdraw the minimum. If member nominates their own pension drawdown strategy, the annual drawdown will be indexed at CPI level.
+                            </li>
+                            <li>
+                                Investment earnings are uniformly distributed over the financial year.
+                            </li>
+                            <li>
+                                SG, pension drawdowns, fees and insurance premiums are received or paid in the middle of each financial year.
+                            </li>
+                            <li>
+                                Tax is paid at the end of each financial year.
+                            </li>
+                            <li>
+                                The age pension entitlements are calculated under the current new deeming rules, taking into consideration the income test and asset test. Note the calculation of age pension needs to be altered if the standard/criterial is updated by the Centrelink.
+                            </li>
+                            <li>
+                                The deeming rate is maintained at the current deeming rate according to the Centrelink website for the entirety of the projected period.
+                            </li>
+                            <li>
+                                There is no change in personal assets or circumstances.
+                            </li>
+                            <li>
+                                The age pension supplement is assumed to be at the maximum level if there is any.
+                            </li>                            
+                        </ol>
+                    </div>
+                    <div class="modal-footer">
+                        <img src="images/client-logo.png">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                        <h4 style="text-align:center;" class="modal-title">Your Form Inputs Are Incorrect/Incomplete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="modal-list">
+                            <li ng-show="forms.ttrForm.firstName.$pristine ">Please provide your first name.</li>
+                            <li ng-show="!forms.ttrForm.firstName.$pristine && forms.ttrForm.firstName.$invalid">Please provide a valid first name.</li>
+                            <li ng-show="forms.ttrForm.lastName.$pristine">Please provide your last name.</li>
+                            <li ng-show="(!forms.ttrForm.lastName.$pristine && forms.ttrForm.lastName.$invalid)">Please provide a valid last name.</li>
+                            <li ng-show="(forms.ttrForm.email.$pristine || forms.ttrForm.email.$invalid)">Please provide a valid email address.</li>
+                            <li ng-show="(forms.ttrForm.mobile.$pristine || forms.ttrForm.mobile.$invalid)">Please provide a valid mobile number.</li>
+                            <li ng-show="forms.ttrForm.postalCode.$invalid">Please provide a valid 4-Digit postal code.</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <h5 style="text-align:center">Please provide the correct inputs to calculate new result, generate the result as PDF and print the result.</h5>
+                        <div class="image-holder">
+                                                        <img src="images/client-logo.png">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="feedback " data-toggle="modal" data-target="#myModal1" >
+        <i class="fa fa-comments faa-tada animated" aria-hidden="true"></i>
+        <label>Feedback</label>
+    </div>
+    <div class="container print-container" style=" display: none; " >
+        <div print-remove class="row button-preview">
+            <div class="col-xs-12">
+                <div class="button-row">
+                    <img src="images/logo.png">
+                    <button class="btn btn-primary ">Print</button>
+                    <button class="btn btn-primary ">Close</button>
+                </div>
+            </div>
+        </div>
+        <div class="row print-preview">
+            <div class="col-xs-12">
+                <div print-section class="row page-1">
+                    <div class="page-head">
+                        <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
+                        <h2>Retirement adequacy calculator</h2>
+                        <div class="date">December 1, 2016</div>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-row">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Tell us about yourself:</h3>
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell print-width-48">
+                                        <div class="tell-lines">
+                                        First Name: <strong>{{ personalDetails.firstName }}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Last Name: <strong>{{ personalDetails.lastName }}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Gender: <strong>{{genderOption ? "Male" : "Female"}}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Date Of Birth: <strong>dob</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Email Address: <strong>{{personalDetails.email}}</strong>
+                                        </div>                                       
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell print-width-48">
+                                        <div class="tell-lines">
+                                        Mobile Number: <strong>{{personalDetails.mobile}}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Postal Code: <strong>{{personalDetails.postalCode}}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Do You Have A Spouse: <strong>{{spouseOption}}</strong>
+                                        </div>
+                                        <div class="tell-lines">
+                                        Do You Own A House: <strong>{{houseOption}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Your account details:</h3>
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell print-width-48">
+                                        <div class="account-lines">
+                                            Annual Salary: <strong>{{ annualSalary }}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Super Balance: <strong>{{ superBalance }}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Salary Sacrifice: <strong>{{ salarySacrifice}}</strong>
+                                        </div>
+                                        <div class="account-lines margin-top-10">
+                                            <strong>Pension related details :</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Retirement Age: <strong>{{ retirementAge}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Pension Start Age: <strong>{{ pensionStart}}</strong>
+                                        </div>   
+                                        <div class="account-lines">
+                                            Pension Drawdown Value: <strong>{{ showPensionOptionSpouse}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Pension Drawdown Base: <strong>{{ pensionDrawdownBase}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Target Income: <strong>{{ target}}</strong>
+                                        </div>                                       
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell print-width-48">                             
+                                        <div class="account-lines">
+                                            <strong>Assumptions :</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Insurance Premium per year: <strong>{{ insurancePremium}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Investment Return: <strong>{{ investmentReturn}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Variable Fee: <strong>{{ variableFee}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Fixed Fee: <strong>{{ fixedFee}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Employer Contribution Level: <strong>{{ employerContributionLevel}}</strong>
+                                        </div>   
+                                        <div class="account-lines">
+                                            Inflation: <strong>{{ inflation}}</strong>
+                                        </div>
+                                        <div class="account-lines">
+                                            Wage Increase: <strong>{{ wageIncrease}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row" ng-show="spouseOption">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Your spouse's account details:</h3>
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell print-width-48">
+                                        <div class="accountSpouse-lines">
+                                            Annual Salary: <strong>{{ annualSalarySpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Super Balance: <strong>{{ superBalanceSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Salary Sacrifice: <strong>{{ salarySacrificeSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines margin-top-10">
+                                            <strong>Pension related details :</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Retirement Age: <strong>{{ retirementAgeSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Pension Start Age: <strong>{{ pensionStartSpouse}}</strong>
+                                        </div>   
+                                        <div class="accountSpouse-lines">
+                                            Pension Drawdown Value: <strong>{{ }}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Pension Drawdown Base: <strong>{{ pensionDrawdownBaseSpouse}}</strong>
+                                        </div>                                    
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell print-width-48">                             
+                                        <div class="accountSpouse-lines">
+                                            <strong>Assumptions :</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Insurance Premium per year: <strong>{{ insurancePremiumSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Investment Return: <strong>{{ investmentReturnSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Variable Fee: <strong>{{ variableFeeSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Fixed Fee: <strong>{{ fixedFeeSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Employer Contribution Level: <strong>{{ employerContributionLevelSpouse}}</strong>
+                                        </div>   
+                                        <div class="accountSpouse-lines">
+                                            Inflation: <strong>{{ inflationSpouse}}</strong>
+                                        </div>
+                                        <div class="accountSpouse-lines">
+                                            Wage Increase: <strong>{{ wageIncreaseSpouse}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Other details:</h3>
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell print-width-48">
+                                        <div class="otherAssets-lines">
+                                            <strong>Assets :</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Home Contents: <strong>{{ homeContents}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Vehicle Cost: <strong>{{ vehicleCost}}</strong>
+                                        </div>                                        
+                                        <div class="otherAssets-lines">
+                                            Investment Property: <strong>{{ investmentProperty}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines margin-top-10">
+                                            <strong>Income :</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Net Rental Income: <strong>{{ netRentalIncome}}</strong>
+                                        </div>   
+                                        <div class="otherAssets-lines">
+                                            Other Income: <strong>{{ otherIncome}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Pension Income: <strong>{{ pensionIncome}}</strong>
+                                        </div>                                     
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell print-width-48">                             
+                                        <div class="otherAssets-lines">
+                                            <strong>Investments :</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Bank Investment: <strong>{{ bankAssets}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Listed Investment: <strong>{{ listedInvestment}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Margin Loans: <strong>{{ marginLoans}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Allocated Pension: <strong>{{ allocatedPension}}</strong>
+                                        </div>
+                                        <div class="otherAssets-lines">
+                                            Other Investment: <strong>{{ otherInvestment}}</strong>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row calc-summary" ng-show="!spouseOption">
+                            <div class="content-section">
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell vertical-align-middle print-width-48">
+                                        <div class="goal-perc">{{resultPerc.perc}} %</div>
+                                        <p class="goal-percLine">OF YOUR GOAL MET.</p>
+                                        <div class="goal-desc-shortfall" ng-show="!surplusOption && !mediumOption">
+                                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                                        </div>
+                                        <div class="goal-desc-almost" ng-show="!surplusOption && mediumOption">
+                                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                                        </div>
+                                        <div class="goal-desc-surplus" ng-show="surplusOption">
+                                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                                        </div>
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell vertical-align-middle print-width-48">                             
+                                        <div class="goal-lines">
+                                            Your retirement savings goal:
+                                        </div>
+                                        <div class="goal-lines goal-m-values">
+                                            <strong>{{resultPerc.target|currency}}</strong>
+                                        </div>
+                                        <div class="goal-lines">
+                                            Your projected savings:
+                                        </div>
+                                        <div class="goal-lines goal-values">
+                                            <strong>{{resultPerc.achieved|currency}}</strong>
+                                        </div>
+                                        <div class="yellow-line"></div>
+                                        <div class="goal-lines">
+                                            <div ng-show="!surplusOption" class="fa fa-exclamation-circle icon"></div>You still need to save:
+                                        </div>
+                                        <div class="goal-lines" ng-show="surplusOption">
+                                            <div class="fa fa-exclamation-circle icon"></div>You have a surplus of:
+                                        </div>
+                                        <div class="goal-lines goal-values">
+                                            <strong>{{resultPerc.diff|currency}}</strong>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div print-section class="row page-2">
+                    <div class="page-head">
+                        <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
+                        <h2>Retirement adequacy calculator</h2>
+                        <div class="date">December 1, 2016</div>
+                    </div>
+                    <div class="page-content">
+                        <div class="content-row calc-summary" ng-show="spouseOption" style="margin-bottom: 20pt;">
+                            <div class="content-section">
+                                <div class="display-table print-width-100">
+                                    <div class="display-table-cell vertical-align-middle print-width-48">
+                                        <div class="goal-perc">{{resultPerc.perc}} %</div>
+                                        <p class="goal-percLine">OF YOUR GOAL MET.</p>
+                                        <div class="goal-desc-shortfall" ng-show="!surplusOption && !mediumOption">
+                                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                                        </div>
+                                        <div class="goal-desc-almost" ng-show="!surplusOption && mediumOption">
+                                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                                        </div>
+                                        <div class="goal-desc-surplus" ng-show="surplusOption">
+                                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                                        </div>
+                                    </div>
+                                    <div class="display-table-cell print-width-4"></div>
+                                    <div class="display-table-cell vertical-align-middle print-width-48">                             
+                                        <div class="goal-lines">
+                                            Your retirement savings goal:
+                                        </div>
+                                        <div class="goal-lines goal-m-values">
+                                            <strong>{{resultPerc.target|currency}}</strong>
+                                        </div>
+                                        <div class="goal-lines">
+                                            Your projected savings:
+                                        </div>
+                                        <div class="goal-lines goal-values">
+                                            <strong>{{resultPerc.achieved|currency}}</strong>
+                                        </div>
+                                        <div class="yellow-line"></div>
+                                        <div class="goal-lines">
+                                            <div ng-show="!surplusOption" class="fa fa-exclamation-circle icon"></div>You still need to save:
+                                        </div>
+                                        <div class="goal-lines" ng-show="surplusOption">
+                                            <div class="fa fa-exclamation-circle icon"></div>You have a surplus of:
+                                        </div>
+                                        <div class="goal-lines goal-values">
+                                            <strong>{{resultPerc.diff|currency}}</strong>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Comparison graph:</h3>
+                                <div class="display-table print-width-100">
+                                    <img id="containerImage" src=""> 
+                                    <img id="containerImageA" ng-show="!spouseOption" src="">                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div print-section class="row page-3">
+                    <div class="page-head">
+                        <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
+                        <h2>Retirement adequacy calculator</h2>
+                        <div class="date">December 1, 2016</div>
+                    </div>
+                    <div class="page-content" >
+                        <div class="content-row" ng-show="spouseOption" style="margin-bottom: 20pt;">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Comparison graph:</h3>
+                                <div class="display-table print-width-100">
+                                    <img id="containerImageB" src="">                                     
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-row">
+                            <div class="content-section">
+                                <h3><div class="fa fa-usd icon"></div>Tell us about yourself:</h3>
+                                 <ol>
+                                    <li>
+                                        The Superannuation Guarantee (SG) contribution is at the rate of 9.5% of ordinary time earnings.
+                                    </li>
+                                    <li>
+                                        The tax rate for taxable income of superannuation in accumulation phase is 15%, including on concessional contributions and income generated.
+                                    </li>
+                                    <li>
+                                        Members will convert the accumulation balance into pension at the nominated pension start age. All contributions will be converted into the pension at the beginning of the next financial year.
+                                    </li>
+                                    <li>
+                                        Salaries are indexed at the wage index level if there is any.
+                                    </li>
+                                    <li>
+                                        Member is able to select the base pension drawdown amount or just withdraw the minimum. If member nominates their own pension drawdown strategy, the annual drawdown will be indexed at CPI level.
+                                    </li>
+                                    <li>
+                                        Investment earnings are uniformly distributed over the financial year.
+                                    </li>
+                                    <li>
+                                        SG, pension drawdowns, fees and insurance premiums are received or paid in the middle of each financial year.
+                                    </li>
+                                    <li>
+                                        Tax is paid at the end of each financial year.
+                                    </li>
+                                    <li>
+                                        The age pension entitlements are calculated under the current new deeming rules, taking into consideration the income test and asset test. Note the calculation of age pension needs to be altered if the standard/criterial is updated by the Centrelink.
+                                    </li>
+                                    <li>
+                                        The deeming rate is maintained at the current deeming rate according to the Centrelink website for the entirety of the projected period.
+                                    </li>
+                                    <li>
+                                        There is no change in personal assets or circumstances.
+                                    </li>
+                                    <li>
+                                        The age pension supplement is assumed to be at the maximum level if there is any.
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="js/angular.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-select.min.js" type="text/javascript"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/controller.js" type="text/javascript"></script>
+    <script>
+    $(document).ready(function() {
+        $("input").keydown(function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $(".postal-code").keydown(function(event) {
+            if (event.keyCode === 38 || event.keyCode === 40) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        $(".mob-input").keydown(function(event) {
+            if (event.keyCode === 38 || event.keyCode === 40) {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+    });
+    </script>
+    <script src="js/AgeCalculatorService.js" type="text/javascript"></script>
+    <script src="js/nouislider.min.js" type="text/javascript"></script>
+    <script src="js/wNumb.js" type="text/javascript"></script>
+    <script src="bower_components/angularPrint/angularPrint.js" type="text/javascript"></script>
+    <script src="js/hc/highcharts.js" type="text/javascript"></script>
+    <script src="js/hc/data.js" type="text/javascript"></script>
+    <script src="js/hc/exporting.js" type="text/javascript"></script>
+    <script src="js/hc/sand-signika.js" type="text/javascript"></script>
+    <script src="js/hc/donutChartService.js" type="text/javascript"></script>
+    <script src="js/hc/chartService.js" type="text/javascript"></script>
+    <script src="js/hc/AreaChartService.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta1/html2canvas.js"></script>
+    <script src="js/rgbcolor.js" type="text/javascript"></script>
+    <script src="js/StackBlur.js" type="text/javascript"></script>
+    <script src="js/canvg.min.js" type="text/javascript"></script>
+    <script src="js/PdfMaker.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/scrollreveal@3.3.2/dist/scrollreveal.min.js"></script>
+    <!-- <script src="js/aos.js" type="text/javascript"></script> -->
+    <script>
+        // AOS.init({
+        //     offset:60,
+        //     once : false,
+        //     disable :'mobile'
+        //   });
+
+        // {reset:false,mobile:false,origin:'right',distance:'50px',duration:1500}
+
+        window.sr = ScrollReveal({duration:1000,scale:1});
+
+       window.contentRevealOptions = {origin:'right',distance:'100px',reset:false,afterReveal:function(){this.reset = false}};
+
+        // sr.reveal('.boxes',{reset:false});
+        sr.reveal('.icon-container',{});
+        sr.reveal('.contents',contentRevealOptions);
+        sr.reveal('.result-contents',{origin:'right',distance:'60px',duration:2000});
+    </script>
+</body>
+
+</html>
