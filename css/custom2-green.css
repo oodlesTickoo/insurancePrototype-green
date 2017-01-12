@@ -70,34 +70,27 @@ body {
     padding-top: 10px;
 }
 
-.account-details .icon-container i {
+.assets-details .icon-container i,
+.otherExpense-details .icon-container i,
+.assumptions-details .icon-container i {
     background-color: #61746b;
 }
 
-.page-content .tell-us {
+.page-content .tell-us,
+.page-content .liability-details,
+.page-content .existingCover-details {
     background-color: #dbebc9;
 }
 
-.page-content .account-details {
+.page-content .assets-details,
+.page-content .otherExpense-details,
+.page-content .assumptions-details {
     background-color: #f3f5f4;
-}
-
-.page-content .spouse-account-details {
-    background-color: #dbebc9;
-}
-
-.page-content .other-assets {
-    background-color: #dbebc9;
-}
-
-.general-details .icon-container i,
-.general-details-results .icon-container i {
-    background-color: #61746b;
 }
 
 .general-details,
 .general-details-results {
-    background-color: #f3f5f4;
+    background-color: #dbebc9;
 }
 
 .page-content .ttrForm .submit-button {
@@ -123,15 +116,12 @@ body {
 
 .result-details .chart-button {
     padding: 8px 10px;
-    width: 200px;
+    width: 100%;
     text-transform: uppercase;
-    color: #424242;
-    /*font-weight: 700;*/
-    /*margin-bottom: 20px;*/
-    /*margin-top: 20px;*/
-    /*margin-right:10px;*/
     font-family: AgendaMedium;
-    background: linear-gradient(0deg, #a2dd3b 0%, #a2dd3b 100%);
+    background: #003946!important;
+    opacity: 1 !important;
+    color: white;
 }
 
 .page-content .ttrForm .submit-button:hover {
@@ -142,9 +132,11 @@ body {
     background: linear-gradient(0deg, #8cc63e 0%, #6d9b2e 100%);
 }
 
-.page-content .account-details input,
-.page-content .other-assets input,
-.page-content .spouse-account-details input {
+.page-content .assets-details input,
+.page-content .liability-details input,
+.page-content .otherExpense-details input,
+.page-content .existingCover-details input,
+.page-content .assumptions-details input {
     text-align: right;
     font-weight: bold;
     color: #003946;
@@ -171,8 +163,7 @@ body {
     padding-right: 11px;
 }
 
-.account-details .bootstrap-select,
-.spouse-account-details .bootstrap-select {
+.otherExpense-details .bootstrap-select {
     width: 130px !important;
 }
 
@@ -185,9 +176,11 @@ body {
     border-bottom: 1px solid white;
 }
 
-.account-details h4,
-.spouse-account-details h4,
-.other-assets h4 {
+.assets-details h4,
+.liability-details h4,
+.otherExpense-details h4,
+.existingCover-details h4,
+.assumptions-details h4 {
     /*font-size: 16px;*/
     font-weight: bold;
     text-transform: uppercase;
@@ -273,9 +266,11 @@ body {
     .result-content .value-container .form-1>div>div>div {
         width: 50%;
     }
-    .page-content .account-details input,
-    .page-content .other-assets input,
-    .page-content .spouse-account-details input {
+    .page-content .assets-details input,
+    .page-content .liability-details input,
+    .page-content .otherExpense-details input,
+    .page-content .existingCover-details input,
+    .page-content .assumptions-details input {
         text-align: right;
         font-weight: bold;
         color: #003946;
@@ -293,12 +288,16 @@ body {
     }
     .tell-us>div:nth-child(2)>h2,
     .tell-us>div:nth-child(1) p,
-    .account-details>div:nth-child(2)>h2,
-    .spouse-account-details>div:nth-child(2)>h2,
-    .account-details>div:nth-child(1) p,
-    .spouse-account-details>div:nth-child(1) p,
-    .other-assets>div:nth-child(2)>h2,
-    .other-assets>div:nth-child(1) p,
+    .assets-details>div:nth-child(2)>h2,
+    .assets-details>div:nth-child(1) p,
+    .liability-details>div:nth-child(2)>h2,
+    .liability-details>div:nth-child(1) p,
+    .otherExpense-details>div:nth-child(2)>h2,
+    .otherExpense-details>div:nth-child(1) p,
+    .existingCover-details>div:nth-child(2)>h2,
+    .existingCover-details>div:nth-child(1) p,
+    .assumptions-details>div:nth-child(2)>h2,
+    .assumptions-details>div:nth-child(1) p,
     .result-details>div>div:nth-child(1)>div:nth-child(2)>h2,
     .result-details>div>div:nth-child(1)>div:nth-child(1) p,
     .general-details-results>div:nth-child(2)>h2,
@@ -315,7 +314,9 @@ body {
     }
 }
 
-.account-details .noUi-horizontal .noUi-handle {
+.assets-details .noUi-horizontal .noUi-handle,
+.otherExpense-details .noUi-horizontal .noUi-handle,
+.assumptions-details .noUi-horizontal .noUi-handle {
     width: 28px;
     height: 28px;
     background-color: #61746b;
@@ -323,8 +324,8 @@ body {
     box-shadow: 0 0 0 1pt #61746b;
 }
 
-.other-assets .noUi-horizontal .noUi-handle,
-.spouse-account-details .noUi-horizontal .noUi-handle,
+.liability-details .noUi-horizontal .noUi-handle,
+.existingCover-details .noUi-horizontal .noUi-handle,
 .result-details .noUi-horizontal .noUi-handle {
     width: 28px;
     height: 28px;
@@ -599,15 +600,15 @@ body {
 }
 
 #bar-chart[disabled],
-#area-chart[disabled] {
-    background: #003946! important;
-    opacity: 1 !important;
-    color: white;
+#area-chart[disabled],
+#area-chart1[disabled],
+#area-chart2[disabled] {
+    color: #424242;
+    background: linear-gradient(0deg, #a2dd3b 0%, #a2dd3b 100%)!important;
 }
 
-#bar-chart {
-    float: right;
-}
+#bar-chart,
+#area-chart1 {}
 
 .value-container {
     margin-right: 0px;
@@ -629,4 +630,65 @@ body {
 #myModal2 li {
     padding-bottom: 10px;
     font-size: 15px;
+}
+
+.res-2,
+.res-1 {
+    background-color: #c8e0ac;
+    font-size: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.res-head {
+    color: #003946;
+    padding: 7px 10px;
+    font-size: 18px;
+    padding-bottom: 0;
+}
+
+.res-1 {
+    padding-bottom: 10px;
+}
+
+.res-1 .divider,
+.res-2 .divider {
+    padding-top: 5px;
+}
+
+.res-value,
+.value2 {
+    font-weight: bold;
+    color: #003946;
+    text-align: right;
+    font-size: 16px;
+}
+
+.main-divider {
+    border-bottom: #003946 solid 1px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#chartBox{
+    padding-left: 0;
+}
+
+.chart-button-parent{
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.res-subHead-value{
+    font-size: 20px;
+    font-weight: bold;
+    color: #003946;
+    text-align: right;
+}
+.res-subHead{
+    font-weight: bold;
+    font-size: 17px;
+}
+.m-single{
+    margin-top: 8px;
 }

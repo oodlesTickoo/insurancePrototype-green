@@ -1,5 +1,48 @@
 app.service('ChartServiceHc', function() {
-    this.createChart = function(balanceArray) {
+    this.createChart = function(containerCC, title, Now, Required, Required2, changeTheme, buyOption) {
+
+        // var HCDefaults = $.extend(true, {}, Highcharts.getOptions(), {});
+
+        if (changeTheme) {
+            Highcharts.theme.chart.style.fontFamily = 'Arial';
+            Highcharts.theme.title.style.fontWeight = 'normal';
+            Highcharts.theme.title.style.fontSize = '15px';
+            Highcharts.theme.xAxis.labels.style.fontWeight = 'normal';
+            Highcharts.theme.yAxis.labels.style.fontWeight = 'normal';
+            Highcharts.theme.yAxis.title.style.fontWeight = 'normal';
+            Highcharts.setOptions(Highcharts.theme);
+        } else {
+            Highcharts.theme.chart.style.fontFamily = 'Dosis, sans-serif';
+            Highcharts.theme.title.style.fontWeight = 'bold';
+            Highcharts.theme.title.style.fontSize = '20px';
+            Highcharts.theme.xAxis.labels.style.fontWeight = 'bold';
+            Highcharts.theme.yAxis.labels.style.fontWeight = 'bold';
+            Highcharts.theme.yAxis.title.style.fontWeight = 'bold';
+            Highcharts.setOptions(Highcharts.theme);
+        }
+
+        var series;
+
+        if (buyOption) {
+            series = [{
+                colorByPoint: true,
+                data: [{
+                    name: 'Scenario One',
+                    y: Required,
+                }, {
+                    name: 'Scenario Two',
+                    y: Required2,
+                }]
+            }];
+        } else {
+            series = [{
+                colorByPoint: true,
+                data: [{
+                    name: 'Suggested Cover',
+                    y: Required,
+                }]
+            }];
+        }
 
 
 
@@ -7,78 +50,30 @@ app.service('ChartServiceHc', function() {
             lang: {
                 thousandsSep: ','
             },
-            colors: ["#003946","#434348","#90ed7d","#FFBC75"]
+            colors: ["rgba(1, 48, 53,0.9)", "rgba(162, 221, 59,0.9)", "rgba(3, 154, 170,0.9)", "rgba(2, 96, 107,0.9)"]
         });
 
-        //console.log(balanceArray.length);
-
-        var infoData = [];
-        if (balanceArray.length > 30) {
-            for (var i = 0; i < balanceArray.length; i++) {
-                infoData.push({
-                    name: i,
-                    y: balanceArray[i]
-                });
-            }
-        } else {
-            for (var i = 0; i < balanceArray.length; i++) {
-
-                infoData.push({
-                    name: i,
-                    y: balanceArray[i]
-                });
-            }
-        }
-
-
-
-
-        // Create the chart
-        $('#container').highcharts({
+        $(containerCC).highcharts({
             chart: {
-                type: 'column',
-                height: 400,
-                events: {
-                    beforePrint: function() {
-                        this.oldhasUserSize = this.hasUserSize;
-                        this.resetParams = [this.chartWidth, this.chartHeight, false];
-                        this.setSize(600, 400, false);
-                    },
-                    afterPrint: function() {
-                        this.setSize.apply(this, this.resetParams);
-                        this.hasUserSize = this.oldhasUserSize;
-                    }
-                }
+                type: 'column'
             },
             title: {
-                text: 'Super Balance Projection'
+                text: title,
+                marginLeft: 0,
+                marginRight: 0
             },
             exporting: {
                 enabled: false
             },
-
             xAxis: {
                 type: 'category',
                 labels: {
                     autoRotation: false,
-                },
-                tickLength: 0,
-                title: {
-                    text: 'Years',
-                    margin: 10,
-                    style: {
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        color: "#000"
-                    }
-                },
-                labels: {
-                step: 5
-            }
+                }
             },
             yAxis: {
                 title: {
-                    text: 'Amount ($)'
+                    text: 'Suggested Cover Amount($)'
                 }
 
             },
@@ -88,24 +83,21 @@ app.service('ChartServiceHc', function() {
             plotOptions: {
                 series: {
                     borderWidth: 0,
+                    fillOpacity: 0.5
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-weight:700;font-size:14px;">Super Balance</span><br>',
+                headerFormat: '<span style="font-weight:700;font-size:14px;">{point.key}</span><br>',
                 pointFormatter: function() {
                     return '<b>' + 'Amount : $' + Highcharts.numberFormat((((this.y)).toFixed(2)), 2, '.') + '</b>';
 
-                },
-                headerFormat: '<span style="font-weight:700;font-size:14px;"> Superannuation Balance year {point.key}</span><br>'
-
+                }
             },
             credits: {
                 enabled: false
             },
 
-            series: [{
-                data: infoData,
-            }],
+            series: series,
 
         });
 

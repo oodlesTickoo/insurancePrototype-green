@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retirement Adequacy Calculator</title>
+    <title>Insurance Adequacy Calculator</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/nouislider.min.css">
@@ -28,7 +28,7 @@
         <div class="row page-heading ">
             <div class="col-xs-12 " style="background: radial-gradient(#8cc63e,#6d9b2e);">
                 <div class=" title-bar ">
-                    Retirement Adequacy Calculator                    
+                    Insurance Adequacy Calculator                    
                 </div>                
             </div>
         </div>
@@ -42,7 +42,7 @@
                         <div class="row banner-wrapper display-table">
                             <div class="banner-text display-table-cell vertical-align-middle text-center">
                                 <h2>Are Your Savings Adequate?</h2>
-                                <p>The Retirement Adequacy Calculator is a tool designed to help you determine whether you and your partner's retirement savings will provide you the retirement that you both want to enjoy.</p>
+                                <p>The Insurance Adequacy Calculator is a tool designed to help you determine whether you and your partner's retirement savings will provide you the retirement that you both want to enjoy.</p>
                             </div>
                             <div class="header-banner display-table-cell vertical-align-middle "><img src="images/header-image.jpg" class="img-responsive" alt=""></div>
                         </div>
@@ -128,74 +128,53 @@
                                     <p class="err-msg">Enter a valid 4-Digit postal code</p>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="select-spouse-option" class="col-xs-6 col-md-4 col-form-label">
-                                    Do You Have A Spouse</label>
-                                <div class="col-xs-6 col-md-4">
-                                    <select class="selectpicker" id="select-spouse-option" title="Choose An Option">
-                                        <option value=0>Yes</option>
-                                        <option value=1>No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row" ng-show="spouseOption">
-                                <label for="select-gender-option-spouse" class="col-xs-6 col-md-4 col-form-label">
-                                    Spouse Gender</label>
-                                <div class="col-xs-6 col-md-4">
-                                    <select class="selectpicker" id="select-gender-option-spouse" title="Choose An Option">
-                                        <option value="0" selected>Female</option>
-                                        <option value="1">Male</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row" ng-show="spouseOption">
-                                <label for="dob" class="col-xs-6 col-md-4 col-form-label">Spouse's Date Of Birth</label>
-                                <div class="col-xs-6 col-md-4">
-                                    <div class="input-group">
-                                        <input type="text" name="dobSpouse" id="dobTextSpouse" onClick="this.select();" class="standard-input form-control dob-input" show-button-bar="false" uib-datepicker-popup="{{format}}" ng-model="dobSpouse" is-open="popup2.opened" datepicker-options="dateOptions" required close-text="Close" ng-blur="ageChange2()" />
-                                        <span class="input-group-addon" ng-click="open2()">
-                                 <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="select-house-option" class="col-xs-6 col-md-4 col-form-label">
-                                    Do You Own A House</label>
-                                <div class="col-xs-6 col-md-4">
-                                    <select class="selectpicker" id="select-house-option" title="Choose An Option">
-                                        <option value="0">Yes</option>
-                                        <option value="1">No</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="row boxes account-details" >
+                    <div class="row boxes assets-details" >
                         <div class="col-sm-2 col-xs-12" >
                             <div class="icon-container">
                                 <i class="fa fa-pie-chart"></i>
                                 <p class="visible-xs details-xs">
-                                    Your Account Details :
+                                    Assets :
                                 </p>
                             </div>
                         </div>
                         <div class="col-sm-10  col-xs-11 contents" >
                             <h2 class="hidden-xs">
-                                Your Account Details :
+                                Assets :
                             </h2>
                             <div class="form-group row">
-                                <label for="annualSalaryInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Annual Salary</label>
+                                <label for="homeValueInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Home Value</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="annualSalarySlider">
+                                    <div class="slider-div" id="homeValueSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" class="form-control" id="annualSalaryInput" name="annualSalaryInput" ng-model="annualSalary">
+                                    <input type="text" onClick="this.select();" class="form-control" id="homeValueInput" name="homeValueInput" ng-model="homeValue">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="superBalanceInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Super Balance</label>
+                                <label for="cashAtBankInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Cash at bank</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="cashAtBankSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="cashAtBankInput" name="cashAtBankInput" ng-model="cashAtBank">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="otherInvestmentInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Other Investment</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="otherInvestmentSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="otherInvestmentInput" name="otherInvestmentInput" ng-model="otherInvestment">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="superBalanceInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Super balance</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
                                     <div class="slider-div" id="superBalanceSlider">
                                     </div>
@@ -204,82 +183,360 @@
                                     <input type="text" onClick="this.select();" class="form-control" id="superBalanceInput" name="superBalanceInput" ng-model="superBalance">
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="row boxes liability-details" >
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-pie-chart"></i>
+                                <p class="visible-xs details-xs">
+                                    Liability :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Liability :
+                            </h2>
                             <div class="form-group row">
-                                <label for="salarySacrificeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Salary Sacrifice</label>
+                                <label for="homeMortgageInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Home Mortgage</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="salarySacrificeSlider">
+                                    <div class="slider-div" id="homeMortgageSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="salarySacrificeInput" name="salarySacrificeInput" ng-model="salarySacrifice">
+                                    <input type="text" onClick="this.select();" class="form-control" id="homeMortgageInput" name="homeMortgageInput" ng-model="homeMortgage">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="investmentPropertyMortgageInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Investment Property Mortgage</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="investmentPropertyMortgageSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="investmentPropertyMortgageInput" name="investmentPropertyMortgageInput" ng-model="investmentPropertyMortgage">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="creditCardDebtInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Credit Card Debt</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="creditCardDebtSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="creditCardDebtInput" name="creditCardDebtInput" ng-model="creditCardDebt">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="carLoanInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Car Loan</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="carLoanSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="carLoanInput" name="carLoanInput" ng-model="carLoan">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="personalLoanInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Personal Loan</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="personalLoanSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="personalLoanInput" name="personalLoanInput" ng-model="personalLoan">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="carLoanInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Other Loan</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="otherLoanSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="otherLoanInput" name="otherLoanInput" ng-model="otherLoan">
+                                </div>
+                            </div>                        
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="row boxes otherExpense-details" >
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-pie-chart"></i>
+                                <p class="visible-xs details-xs">
+                                    Other Expense :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Other Expense :
+                            </h2>
+                            <div class="form-group row">
+                                <label for="numChildrenInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Number of Financially Dependent Children</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="numChildrenSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="numChildrenInput" name="numChildrenInput" ng-model="numChildren">
+                                </div>
+                            </div>
+                            <div class="form-group row c1">
+                                <label for="ageChildren1Input" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Age of First Child</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageChildren1Slider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="ageChildren1Input" name="ageChildren1Input" ng-model="ageChildren1">
+                                </div>
+                            </div>
+                            <div class="form-group row c2">
+                                <label for="ageChildren2Input" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Age of Second Child</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageChildren2Slider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="ageChildren2Input" name="ageChildren2Input" ng-model="ageChildren2">
+                                </div>
+                            </div>
+                            <div class="form-group row c3">
+                                <label for="ageChildren3Input" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Age of Third Child</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageChildren3Slider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="ageChildren3Input" name="ageChildren3Input" ng-model="ageChildren3">
+                                </div>
+                            </div>
+                            <div class="form-group row c4">
+                                <label for="ageChildren4Input" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Age of Fourth Child</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageChildren4Slider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="ageChildren4Input" name="ageChildren4Input" ng-model="ageChildren4">
+                                </div>
+                            </div>
+                            <div class="form-group row c5">
+                                <label for="ageChildren5Input" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Age of Fifth Child</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageChildren5Slider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="number" onClick="this.select();" class="form-control" id="ageChildren5Input" name="ageChildren5Input" ng-model="ageChildren5">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 white-border"></div>
                             </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Assumptions :</h4>
-                                </div>
-                            </div>
                             <div class="form-group row">
-                                <label for="insurancePremiumInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Insurance Premium per year</label>
+                                <label for="funeralCostInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Funeral Cost</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="insurancePremiumSlider">
+                                    <div class="slider-div" id="funeralCostSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="insurancePremiumInput" name="insurancePremiumInput" ng-model="insurancePremium">
+                                    <input type="text" onClick="this.select();" class="form-control" id="funeralCostInput" name="funeralCostInput" ng-model="funeralCost">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="investmentReturnInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Investment Return</label>
+                                <label for="educationExpensePerYearPerChildInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Education Expense per year per child</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="investmentReturnSlider">
+                                    <div class="slider-div" id="educationExpensePerYearPerChildSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="investmentReturnInput" name="investmentReturnInput" ng-model="investmentReturn">
+                                    <input type="text" onClick="this.select();" class="form-control" id="educationExpensePerYearPerChildInput" name="educationExpensePerYearPerChildInput" ng-model="educationExpensePerYearPerChild">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="variableFeeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Variable Fee</label>
+                                <label for="familyLivingCostPerYearInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Family Living Cost per year</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="variableFeeSlider">
+                                    <div class="slider-div" id="familyLivingCostPerYearSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="variableFeeInput" name="variableFeeInput" ng-model="variableFee">
+                                    <input type="text" onClick="this.select();" class="form-control" id="familyLivingCostPerYearInput" name="familyLivingCostPerYearInput" ng-model="familyLivingCostPerYear">
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-xs-12 white-border"></div>
+                            </div>
                             <div class="form-group row">
-                                <label for="fixedFeeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Fixed Fee</label>
+                                <label for="select-spouse-option" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Do you have a spouse?</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="fixedFeeSlider">
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <select class="selectpicker" id="select-spouse-option" title="Choose An Option">
+                                        <option value="0" selected>Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="spouseOption">
+                                <label for="ageSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Age of Spouse</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ageSpouseSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="fixedFeeInput" name="fixedFeeInput" ng-model="fixedFee">
+                                    <input type="text" onClick="this.select();" class="form-control" id="ageSpouseInput" name="ageSpouseInput" ng-model="ageSpouse">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="employerContributionLevelInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Employer Contribution Level</label>
+                            <div class="form-group row" ng-show="spouseOption">
+                                <label for="select-spouseWork-option" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    Does your spouse work?</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="employerContributionLevelSlider">
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <select class="selectpicker" id="select-spouseWork-option" title="Choose An Option">
+                                        <option value="0" selected>Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="(spouseWorkOption && spouseOption)">
+                                <label for="spouseSalaryInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Income of Spouse</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="spouseSalarySlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="employerContributionLevelInput" name="employerContributionLevelInput" ng-model="employerContributionLevel">
+                                    <input type="text" onClick="this.select();" class="form-control" id="spouseSalaryInput" name="spouseSalaryInput" ng-model="spouseSalary">
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="spouseOption">
+                                <label for="select-buy-option" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
+                                    In the event of death, is your spouse considering to move to a smaller property?</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <select class="selectpicker" id="select-buy-option" title="Choose An Option">
+                                        <option value="0" selected>Yes</option>
+                                        <option value="1">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="(buyOption && spouseOption)">
+                                <label for="valueOfNewPropertyInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Value of the property you want to buy?</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="valueOfNewPropertySlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="valueOfNewPropertyInput" name="valueOfNewPropertyInput" ng-model="valueOfNewProperty">
+                                </div>
+                            </div>
+                            <div class="form-group row" ng-show="(buyOption && spouseOption)">
+                                <label for="moneyToBeBorrowedInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Income of Spouse</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="moneyToBeBorrowedSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="moneyToBeBorrowedInput" name="moneyToBeBorrowedInput" ng-model="moneyToBeBorrowed">
+                                </div>
+                            </div>                       
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="row boxes existingCover-details">
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-pie-chart"></i>
+                                <p class="visible-xs details-xs">
+                                    Existing Cover :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Existing Cover :
+                            </h2>
+                            <div class="form-group row">
+                                <label for="ecLifeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Life</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ecLifeSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="ecLifeInput" name="ecLifeInput" ng-model="ecLife">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inflationInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Inflation</label>
+                                <label for="ecTPDInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">TPD</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ecTPDSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="ecTPDInput" name="ecTPDInput" ng-model="ecTPD">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ecIPInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Income Protection Per Month</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ecIPSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="ecIPInput" name="ecIPInput" ng-model="ecIP">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ecTraumaInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Trauma</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="ecTraumaSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="ecTraumaInput" name="ecTraumaInput" ng-model="ecTrauma">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="sickLeavesInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">How many days of accrued sick leave do you have ?</label>
+                                <div class="col-md-5 hidden-xs col-sm-5">
+                                    <div class="slider-div" id="sickLeavesSlider">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-md-4 col-sm-4">
+                                    <input type="text" onClick="this.select();" class="form-control" id="sickLeavesInput" name="sickLeavesInput" ng-model="sickLeaves">
+                                </div>
+                            </div>                      
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="row boxes assumptions-details">
+                        <div class="col-sm-2 col-xs-12" >
+                            <div class="icon-container">
+                                <i class="fa fa-pie-chart"></i>
+                                <p class="visible-xs details-xs">
+                                    Assumptions :
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-10  col-xs-11 contents" >
+                            <h2 class="hidden-xs">
+                                Assumptions :
+                            </h2>                        
+                            <div class="form-group row">
+                                <label for="inflationInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Wage/living cost inflation</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
                                     <div class="slider-div" id="inflationSlider">
                                     </div>
@@ -289,418 +546,27 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="wageIncreaseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Wage Increase</label>
+                                <label for="carLoanInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Rate of Return</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="wageIncreaseSlider">
+                                    <div class="slider-div" id="rateOfReturnSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="wageIncreaseInput" name="wageIncreaseInput" ng-model="wageIncrease">
+                                    <input type="text" onClick="this.select();" class="form-control" id="rateOfReturnInput" name="rateOfReturnInput" ng-model="rateOfReturn">
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 white-border"></div>
-                            </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Pension Related Details :</h4>
-                                </div>
-                            </div>
+                            </div>            
                             <div class="form-group row">
-                                <label for="retirementAgeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Retirement Age</label>
+                                <label for="grossAnnualIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Gross Income</label>
                                 <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="retirementAgeSlider">
+                                    <div class="slider-div" id="grossAnnualIncomeSlider">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="retirementAgeInput" name="retirementAgeInput" ng-model="retirementAge">
+                                    <input type="text" onClick="this.select();" class="form-control" id="grossAnnualIncomeInput" name="grossAnnualIncomeInput" ng-model="grossAnnualIncome">
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="pensionStartInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">Pension Start Age</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="pensionStartSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="pensionStartInput" name="pensionStartInput" ng-model="pensionStart">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="select-pension-drawdown" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Drawdown Value</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <select class="selectpicker" id="select-pension-drawdown" title="Choose An Option">
-                                        <option value="0" selected>Select Your Own Value</option>
-                                        <option value="1">Minimum Pension Only</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row" ng-show="showPensionOption">
-                                <label for="pensionDrawdownBaseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Drawdown Base</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="pensionDrawdownBaseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="pensionDrawdownBaseInput" name="pensionDrawdownBaseInput" ng-model="pensionDrawdownBase">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="targetInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Target Income</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="targetSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="targetInput" name="targetInput" ng-model="target">
-                                </div>
-                            </div>
+                            </div>               
                         </div>
                         <div class="col-sm-2">
-                        </div>
-                    </div>
-                    <div class="row boxes spouse-account-details"  ng-show="spouseOption">
-                        <div class="col-sm-2 col-xs-12" >
-                            <div class="icon-container">
-                                <i class="fa fa-user"></i>
-                                <p class="visible-xs details-xs">
-                                    Spouse's Account Details :
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-10 col-xs-12 contents" >
-                            <h2 class="hidden-xs">Spouse's Account Details :</h2>
-                            <div class="form-group row">
-                                <label for="annualSalarySpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Annual Salary</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="annualSalarySpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="annualSalarySpouseInput" name="annualSalarySpouseInput" ng-model="annualSalarySpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="superBalanceSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Super Balance</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="superBalanceSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="superBalanceSpouseInput" name="superBalanceSpouseInput" ng-model="superBalanceSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="salarySacrificeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Salary Sacrifice</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="salarySacrificeSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="salarySacrificeSpouseInput" name="salarySacrificeSpouseInput" ng-model="salarySacrificeSpouse">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 white-border"></div>
-                            </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Assumptions :</h4>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="insurancePremiumSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Insurance Premium per year</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="insurancePremiumSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="insurancePremiumSpouseInput" name="insurancePremiumSpouseInput" ng-model="insurancePremiumSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="investmentReturnSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Investment Return</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="investmentReturnSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="investmentReturnSpouseInput" name="investmentReturnSpouseInput" ng-model="investmentReturnSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="variableFeeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Variable Fee</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="variableFeeSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="variableFeeSpouseInput" name="variableFeeSpouseInput" ng-model="variableFeeSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="fixedFeeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Fixed Fee</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="fixedFeeSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="fixedFeeSpouseInput" name="fixedFeeSpouseInput" ng-model="fixedFeeSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="employerContributionLevelSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Employer Contribution Level</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="employerContributionLevelSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="employerContributionLevelSpouseInput" name="employerContributionLevelSpouseInput" ng-model="employerContributionLevelSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inflationSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Inflation</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="inflationSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="inflationSpouseInput" name="inflationSpouseInput" ng-model="inflationSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="wageIncreaseSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Wage Increase</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="wageIncreaseSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="wageIncreaseSpouseInput" name="wageIncreaseSpouseInput" ng-model="wageIncreaseSpouse">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 white-border"></div>
-                            </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Pension Related Details :</h4>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="retirementAgeSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Retirement Age</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="retirementAgeSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="retirementAgeSpouseInput" name="retirementAgeSpouseInput" ng-model="retirementAgeSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="pensionStartSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Start</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="pensionStartSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="pensionStartSpouseInput" name="pensionStartSpouseInput" ng-model="pensionStartSpouse">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="select-pension-drawdown-spouse" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Drawdown Value</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <select class="selectpicker" id="select-pension-drawdown-spouse" title="Choose An Option">
-                                        <option value="0" selected>Select Your Own Value</option>
-                                        <option value="1">Minimum Pension Only</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row" ng-show="showPensionOptionSpouse">
-                                <label for="pensionDrawdownBaseSpouseInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Drawdown Base</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="pensionDrawdownBaseSpouseSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="pensionDrawdownBaseSpouseInput" name="pensionDrawdownBaseSpouseInput" ng-model="pensionDrawdownBaseSpouse">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row boxes other-assets" id="other-assets-div" >
-                        <div class="col-sm-2 col-xs-12" >
-                            <div class="icon-container">
-                                <i class="fa fa-usd"></i>
-                                <p class="visible-xs details-xs">
-                                    Other Assets :
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-10  col-xs-11 contents" >
-                            <h2 class="hidden-xs">Other Assets : </h2>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Asset:</h4>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="homeContentsInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Home Contents</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="homeContentsSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="homeContentsInput" name="homeContentsInput" ng-model="homeContents">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="vehicleCostInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Vehicle Cost</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="vehicleCostSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="vehicleCostInput" name="vehicleCostInput" ng-model="vehicleCost">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="investmentPropertyInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Investment Property</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="investmentPropertySlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="investmentPropertyInput" name="investmentPropertyInput" ng-model="investmentProperty"> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 white-border"></div>
-                            </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Investments:</h4>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="bankAssetsInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Bank Investment</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="bankAssetsSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="bankAssetsInput" name="bankAssetsInput" ng-model="bankAssets">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="listedInvestmentInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Listed Investment</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="listedInvestmentSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="listedInvestmentInput" name="listedInvestmentInput" ng-model="listedInvestment">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="marginLoansInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Margin Loans</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="marginLoansSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="marginLoansInput" name="marginLoansInput" ng-model="marginLoans">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="allocatedPensionInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Allocated Pension</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="allocatedPensionSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="allocatedPensionInput" name="allocatedPensionInput" ng-model="allocatedPension">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="otherInvestmentInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Other Investment</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="otherInvestmentSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="otherInvestmentInput" name="otherInvestmentInput" ng-model="otherInvestment">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 white-border"></div>
-                            </div>
-                            <div class="row intrnl-head">
-                                <div class="col-xs-12">
-                                    <h4>Income:</h4>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="netRentalIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Net Rental Income</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="netRentalIncomeSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="netRentalIncomeInput" name="netRentalIncomeInput" ng-model="netRentalIncome">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="otherIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Other Income</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="otherIncomeSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="otherIncomeInput" name="otherIncomeInput" ng-model="otherIncome">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="pensionIncomeInput" class="col-xs-6 col-md-3 col-sm-3 col-form-label">
-                                    Pension Income</label>
-                                <div class="col-md-5 hidden-xs col-sm-5">
-                                    <div class="slider-div" id="pensionIncomeSlider">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-md-4 col-sm-4">
-                                    <input type="text" onClick="this.select();" class="form-control" id="pensionIncomeInput" name="pensionIncomeInput" ng-model="pensionIncome">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row calculate-row contents">
@@ -709,7 +575,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="row boxes general-details " >                    
+                <div class="row boxes general-details">
                     <div class="col-sm-2 col-xs-12" >
                         <div class="icon-container">
                             <i class="fa fa-lightbulb-o"></i>
@@ -778,21 +644,29 @@
                             </div>
                         </div>
                         <div class="row result-contents" style="margin-top:25px;" >
-                            <div class="col-xs-12 col-sm-7 col-md-7 chart-container">
+                            <div class="col-xs-12 col-md-offset-1 col-sm-offset-1 col-sm-5 col-md-5 chart-container">
                                 <div class="row chart-buttons-row" style="margin-bottom:25px" print-remove>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="row hidden-xs">
-                                            <div class="col-sm-6 col-md-6" style="padding-right: 5px;">
-                                                <button class="btn btn-primary btn-block chart-button" id="bar-chart" ng-disabled="chartOneOpen">Super Balance Projection</button>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6" style="padding-left: 5px;">
-                                                <button class="btn btn-primary btn-block chart-button" id="area-chart" description" ng-disabled="!chartOneOpen">Income Stream Analysis</button>
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-3 chart-button-parent">
+                                                <button class="btn btn-primary btn-block chart-button" id="bar-chart" ng-disabled="chartOneOpen">Death</button>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 chart-button-parent">
+                                                <button class="btn btn-primary btn-block chart-button" id="area-chart" ng-disabled="chartTwoOpen">TPD</button>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 chart-button-parent">
+                                                <button class="btn btn-primary btn-block chart-button" id="area-chart1" ng-disabled="chartThreeOpen">IP</button>
+                                            </div>
+                                            <div class="col-sm-3 col-md-3 chart-button-parent">
+                                                <button class="btn btn-primary btn-block chart-button" id="area-chart2" ng-disabled="chartFourOpen">Trauma</button>
                                             </div>
                                         </div>
-                                        <div class="row visible-xs" style="margin-top:10px;">
+                                        <div class="row" style="margin-top:10px;display: none;"  >
                                             <div class="col-xs-12 col-sm-12 col-md-12 small-buttons">
                                                 <button class="btn btn-primary chart-xs-btn" id="bar-chart-m" title="Super Balance Projection" ng-disabled="chartOneOpen"><i class="fa fa-bar-chart"></i></button>
-                                                <button class="btn btn-primary chart-xs-btn" id="area-chart-m" title="Income Stream Analysis" ng-disabled="!chartOneOpen"><i class="fa fa-area-chart"></i></button>
+                                                <button class="btn btn-primary chart-xs-btn" id="area-chart-m" title="Income Stream Analysis" ng-disabled="chartTwoOpen"><i class="fa fa-area-chart"></i></button>
+                                                <button class="btn btn-primary chart-xs-btn" id="area-chart1-m" title="Income Stream Analysis" ng-disabled="chartThreeOpen"><i class="fa fa-area-chart"></i></button>
+                                                <button class="btn btn-primary chart-xs-btn" id="area-chart2-m" title="Income Stream Analysis" ng-disabled="chartFourOpen"><i class="fa fa-area-chart"></i></button>
                                                 <div class="start-over-button" style="display:inline-block;position:relative;top:2px;float:right"><a class="start-over" href="javascript:void(0);" ng-click="resetSliders()"><span class="fa fa-refresh icon"><span class="sr-only">Start over</span>&nbsp;</span>Start over</a></div>
                                             </div>
                                         </div>
@@ -800,18 +674,241 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12" id="chartBox">
-                                        <div id="container" style="display:block; height:100%"></div>
-                                        <div id="containerA" style="display:none; height:100%"></div>
+                                        <div id="containerB" style="display:block; height:350px;width:350px;" ></div>
+                                        <div id="containerB2" style="display:none; height:350px;width:350px; "></div>
+                                        <div id="containerB3" style="display:none; height:350px; width:350px;"></div>
+                                        <div id="containerB4" style="display:none; height:350px;width:350px; "></div>
+                                    </div>
+                                </div>
+                                <div class="row res-2" ng-show="chartOneOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row res-head"><strong>Death cover</strong></div>
+                                        <div class="row main-divider"></div>
+                                        <div class="row" ng-show="!buyOption">
+                                            <div class="col-xs-7 res-des">Estimated Cover</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.life | currency }}</div>
+                                        </div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario One</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.life | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario Two</div>
+                                            <div class="col-xs-5 res-value">{{ resultS2.life | currency }}</div>
+                                        </div>
+                                        <div class="row divider"></div>
+                                        <div class="row">
+                                            <div class="col-xs-7 res-des">Existing cover</div>
+                                            <div class="col-xs-5 res-value">{{ecL | currency}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-1" ng-show="chartOneOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row dd m-single" ng-show="needLife1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated shortfall</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfLife1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd m-single" ng-show="!needLife1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated excess</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfLife1 | currency }}</div>
+                                        </div>
+                                        <div class="row res-head" ng-show="buyOption"><strong>Excess(E) / Shortfall(S)</strong></div>
+                                        <div class="row main-divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="!needLife1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfLife1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="needLife1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfLife1 | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.life<ecL)">
+                                            <div class="col-xs-7 ">Scenario Two(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfLife2 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="buyOption  && (resultS2.life>ecL)">
+                                            <div class="col-xs-7 ">Scenario Two(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfLife2 | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-2" ng-show="chartTwoOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row res-head"><strong>TPD cover</strong></div>
+                                        <div class="row main-divider"></div>
+                                        <div class="row" ng-show="!buyOption">
+                                            <div class="col-xs-7 res-des">Estimated Cover</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.TPD | currency }}</div>
+                                        </div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario One</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.TPD | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario Two</div>
+                                            <div class="col-xs-5 res-value">{{ resultS2.TPD | currency }}</div>
+                                        </div>
+                                        <div class="row divider"></div>
+                                        <div class="row">
+                                            <div class="col-xs-7 res-des">Existing cover</div>
+                                            <div class="col-xs-5 res-value">{{ ecT | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-1" ng-show="chartTwoOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row dd m-single" ng-show="needTPD1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated shortfall</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfTPD1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd m-single" ng-show="!needTPD1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated excess</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfTPD1 | currency }}</div>
+                                        </div>
+                                        <div class="row res-head" ng-show="buyOption"><strong>Excess(E) / Shortfall(S)</strong></div>
+                                        <div class="row main-divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="!needTPD1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfTPD1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="needTPD1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfTPD1 | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.TPD<ecT)">
+                                            <div class="col-xs-7 ">Scenario Two(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfTPD2 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.TPD>ecT)">
+                                            <div class="col-xs-7 ">Scenario Two(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfTPD2 | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-2" ng-show="chartThreeOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row res-head"><strong>Income Protection cover</strong></div>
+                                        <div class="row main-divider"></div>
+                                        <div class="row" ng-show="!buyOption">
+                                            <div class="col-xs-7 res-des">Estimated Cover</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.IP | currency }}</div>
+                                        </div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario One</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.IP | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario Two</div>
+                                            <div class="col-xs-5 res-value">{{ resultS2.IP | currency }}</div>
+                                        </div>
+                                        <div class="row divider"></div>
+                                        <div class="row">
+                                            <div class="col-xs-7 res-des">Existing cover</div>
+                                            <div class="col-xs-5 res-value">{{ ecI | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-1" ng-show="chartThreeOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row dd m-single" ng-show="needIP1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated shortfall</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfIP1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd m-single" ng-show="!needIP1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated excess</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfIP1 | currency }}</div>
+                                        </div>
+                                        <div class="row res-head" ng-show="buyOption"><strong>Excess(E) / Shortfall(S)</strong></div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="!needIP1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfIP1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="needIP1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfIP1 | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.IP<ecI)">
+                                            <div class="col-xs-7 ">Scenario Two(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfIP2 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.IP>ecI)">
+                                            <div class="col-xs-7 ">Scenario Two(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfIP2 | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-2" ng-show="chartFourOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row res-head"><strong>Trauma cover</strong></div>
+                                        <div class="row main-divider"></div>
+                                        <div class="row" ng-show="!buyOption">
+                                            <div class="col-xs-7 res-des">Estimated Cover</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.trauma | currency }}</div>
+                                        </div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario One</div>
+                                            <div class="col-xs-5 res-value">{{ resultS1.trauma | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row" ng-show="buyOption">
+                                            <div class="col-xs-7 res-des">Estimated cover Scenario Two</div>
+                                            <div class="col-xs-5 res-value">{{ resultS2.trauma | currency }}</div>
+                                        </div>
+                                        <div class="row divider"></div>
+                                        <div class="row">
+                                            <div class="col-xs-7 res-des">Existing cover</div>
+                                            <div class="col-xs-5 res-value">{{ ecTr | currency }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row res-1" ng-show="chartFourOpen">
+                                    <div class="col-xs-12">
+                                        <div class="row dd m-single" ng-show="needTrauma1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated shortfall</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfTrauma1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd m-single" ng-show="!needTrauma1 && !buyOption">
+                                            <div class="col-xs-7 col-sm-7 res-subHead">Estimated excess</div>
+                                            <div class="col-xs-5 col-sm-5 res-subHead-value">{{ sfTrauma1 | currency }}</div>
+                                        </div>
+                                        <div class="row res-head" ng-show="buyOption"><strong>Excess(E) / Shortfall(S)</strong></div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="!needTrauma1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfTrauma1 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="needTrauma1 && buyOption">
+                                            <div class="col-xs-7 ">Scenario One(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfTrauma1 | currency }}</div>
+                                        </div>
+                                        <div class="row divider" ng-show="buyOption"></div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.trauma<ecTr)">
+                                            <div class="col-xs-7 ">Scenario Two(E)</div>
+                                            <div class="col-xs-5  value2">{{ sfTrauma2 | currency }}</div>
+                                        </div>
+                                        <div class="row dd" ng-show="buyOption && (resultS2.trauma>ecTr)">
+                                            <div class="col-xs-7 ">Scenario Two(S)</div>
+                                            <div class="col-xs-5  value2">{{ sfTrauma2 | currency }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-5 col-md-5">
+                            <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-offset-1 col-md-5">
                                 <div class="row hidden-xs" style="margin-bottom:25px;margin-right: 0px;">
                                     <div class="col-xs-12 col-sm-12 col-md-12 text-right">
                                         <div class="start-over-button"><a class="start-over"
                                          href="javascript:void(0);" ng-click="resetSliders()"><span class="fa fa-refresh icon"><span class="sr-only">Start over</span>&nbsp;</span>Start over</a></div>
                                     </div>
                                 </div>
+
                                 <div class="row value-container">
                                     <div class="col-sm-12 col-md-12 col-xs-12">
                                         <div class="row title-div" ng-click="menuDrop1();">
@@ -827,121 +924,87 @@
                                             <div class="col-xs-12">
                                                 <div class="row result-labels hidden-xs">
                                                     <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Annual Salary
+                                                        Gross income
                                                     </div>
                                                 </div>
                                                 <div class="display-table result-table">
                                                     <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="annualSalarySliderNew">
+                                                        <div class="slider-div-new" id="grossAnnualIncomeSliderNew">
                                                         </div>
                                                     </div>
                                                     <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Annual Salary</label>
+                                                        <label>Gross income</label>
                                                     </div>
                                                     <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="annualSalaryInputNew" name="annualSalaryInputNew" ng-model="annualSalaryNew">
-                                                    </div>
-                                                </div>
-                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
-                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                       Spouse's Annual Salary
-                                                    </div>
-                                                </div>
-                                                <div class="display-table result-table" ng-show="spouseOption">
-                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="annualSalarySpouseSliderNew">
-                                                        </div>
-                                                    </div>
-                                                    <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Spouse's Annual Salary</label>
-                                                    </div>
-                                                    <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="annualSalarySpouseInputNew" name="annualSalarySpouseInputNew" ng-model="annualSalarySpouseNew">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="grossAnnualIncomeInputNew" name="grossAnnualIncomeInputNew" ng-model="grossAnnualIncomeNew">
                                                     </div>
                                                 </div>
                                                 <div class="row result-labels hidden-xs">
                                                     <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Super Balance
+                                                        Life Cover
                                                     </div>
                                                 </div>
                                                 <div class="display-table result-table">
                                                     <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="superBalanceSliderNew">
+                                                        <div class="slider-div-new" id="ecLifeSliderNew">
                                                         </div>
                                                     </div>
                                                     <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Super Balance</label>
+                                                        <label>Life Cover</label>
                                                     </div>
                                                     <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="superBalanceInputNew" name="superBalanceInputNew" ng-model="superBalanceNew">
-                                                    </div>
-                                                </div>
-                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
-                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Spouse's Super Balance
-                                                    </div>
-                                                </div>
-                                                <div class="display-table result-table" ng-show="spouseOption">
-                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="superBalanceSpouseSliderNew">
-                                                        </div>
-                                                    </div>
-                                                    <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Spouse's Super Balance</label>
-                                                    </div>
-                                                    <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="superBalanceSpouseInputNew" name="superBalanceSpouseInputNew" ng-model="superBalanceSpouseNew">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="ecLifeInputNew" name="ecLifeInputNew" ng-model="ecLifeNew">
                                                     </div>
                                                 </div>
                                                 <div class="row result-labels hidden-xs">
                                                     <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Retirement Age
+                                                        TPD Cover
                                                     </div>
                                                 </div>
                                                 <div class="display-table result-table">
                                                     <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="retirementAgeSliderNew">
+                                                        <div class="slider-div-new" id="ecTPDSliderNew">
                                                         </div>
                                                     </div>
                                                     <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Retirement Age</label>
+                                                        <label>TPD Cover</label>
                                                     </div>
                                                     <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="retirementAgeInputNew" name="retirementAgeInputNew" ng-model="retirementAgeNew">
-                                                    </div>
-                                                </div>
-                                                <div class="row result-labels hidden-xs" ng-show="spouseOption">
-                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Spouse's Retirement Age
-                                                    </div>
-                                                </div>
-                                                <div class="display-table result-table" ng-show="spouseOption">
-                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
-                                                        <div class="slider-div-new" id="retirementAgeSpouseSliderNew">
-                                                        </div>
-                                                    </div>
-                                                    <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Spouse's Retirement Age</label>
-                                                    </div>
-                                                    <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="retirementAgeSpouseInputNew" name="retirementAgeSpouseInputNew" ng-model="retirementAgeSpouseNew">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="ecTPDInputNew" name="ecTPDInputNew" ng-model="ecTPDNew">
                                                     </div>
                                                 </div>
                                                 <div class="row result-labels hidden-xs">
                                                     <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
-                                                        Target Income
+                                                        Income Protection Per Month Cover
                                                     </div>
                                                 </div>
                                                 <div class="display-table result-table">
-                                                    <div class="display-table-cell hidden-xs vertical-align-middle">
-                                                        <div class="slider-div-new" id="targetSliderNew">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="ecIPSliderNew">
                                                         </div>
                                                     </div>
                                                     <div class="visible-xs display-table-cell vertical-align-middle">
-                                                        <label>Target Income</label>
+                                                        <label>Income Protection Per Month Cover</label>
                                                     </div>
                                                     <div class="display-table-cell vertical-align-middle">
-                                                        <input type="text" onClick="this.select();" class="form-control" id="targetInputNew" name="targetInput" ng-model="targetNew">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="ecIPInputNew" name="ecIPInputNew" ng-model="ecIPNew">
+                                                    </div>
+                                                </div>
+                                                <div class="row result-labels hidden-xs">
+                                                    <div class="col-xs-6 col-md-12 col-sm-12 col-lg-12">
+                                                        Trauma Cover
+                                                    </div>
+                                                </div>
+                                                <div class="display-table result-table">
+                                                    <div class="hidden-xs display-table-cell vertical-align-middle">
+                                                        <div class="slider-div-new" id="ecTraumaSliderNew">
+                                                        </div>
+                                                    </div>
+                                                    <div class="visible-xs display-table-cell vertical-align-middle">
+                                                        <label>Trauma Cover</label>
+                                                    </div>
+                                                    <div class="display-table-cell vertical-align-middle">
+                                                        <input type="text" onClick="this.select();" class="form-control" id="ecTraumaInputNew" name="ecTraumaInputNew" ng-model="ecTraumaNew">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1135,7 +1198,7 @@
                 <div print-section class="row page-1">
                     <div class="page-head">
                         <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
-                        <h2>Retirement adequacy calculator</h2>
+                        <h2>Insurance Adequacy calculator</h2>
                         <div class="date">December 1, 2016</div>
                     </div>
                     <div class="page-content">
@@ -1405,7 +1468,7 @@
                 <div print-section class="row page-2">
                     <div class="page-head">
                         <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
-                        <h2>Retirement adequacy calculator</h2>
+                        <h2>Insurance Adequacy calculator</h2>
                         <div class="date">December 1, 2016</div>
                     </div>
                     <div class="page-content">
@@ -1468,7 +1531,7 @@
                 <div print-section class="row page-3">
                     <div class="page-head">
                         <img src="images/logo.png" width="180px" height="50px" alt="Financial Choice logo">
-                        <h2>Retirement adequacy calculator</h2>
+                        <h2>Insurance Adequacy calculator</h2>
                         <div class="date">December 1, 2016</div>
                     </div>
                     <div class="page-content" >
