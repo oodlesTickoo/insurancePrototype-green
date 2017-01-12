@@ -347,15 +347,19 @@
     width: inherit;
 }
 
-.account-details .form-group>div:nth-child(3),
-.spouse-account-details .form-group>div:nth-child(3),
-.other-assets .form-group>div:nth-child(3) {
+.assets-details .form-group>div:nth-child(3),
+.liability-details .form-group>div:nth-child(3),
+.otherExpense-details .form-group>div:nth-child(3),
+.existingCover-details .form-group>div:nth-child(3),
+.assumptions-details .form-group>div:nth-child(3) {
     padding-left: 30px;
 }
 
-.account-details .form-group>div:nth-child(2),
-.spouse-account-details .form-group>div:nth-child(2),
-.other-assets .form-group>div:nth-child(2) {
+.assets-details .form-group>div:nth-child(2),
+.liability-details .form-group>div:nth-child(2),
+.otherExpense-details .form-group>div:nth-child(2),
+.existingCover-details .form-group>div:nth-child(2),
+.assumptions-details .form-group>div:nth-child(2) {
     padding-left: 30px;
 }
 
@@ -369,12 +373,16 @@
 
 .tell-us>div:nth-child(2)>h2,
 .tell-us>div:nth-child(1) p,
-.account-details>div:nth-child(2)>h2,
-.spouse-account-details>div:nth-child(2)>h2,
-.account-details>div:nth-child(1) p,
-.spouse-account-details>div:nth-child(1) p,
-.other-assets>div:nth-child(2)>h2,
-.other-assets>div:nth-child(1) p,
+.assets-details>div:nth-child(2)>h2,
+.assets-details>div:nth-child(1) p,
+.liability-details>div:nth-child(2)>h2,
+.liability-details>div:nth-child(1) p,
+.otherExpense-details>div:nth-child(2)>h2,
+.otherExpense-details>div:nth-child(1) p,
+.existingCover-details>div:nth-child(2)>h2,
+.existingCover-details>div:nth-child(1) p,
+.assumptions-details>div:nth-child(2)>h2,
+.assumptions-details>div:nth-child(1) p,
 .result-details>div>div:nth-child(1)>div:nth-child(2)>h2,
 .result-details>div>div:nth-child(1)>div:nth-child(1) p,
 .general-details-results>div:nth-child(2)>h2,
@@ -397,7 +405,11 @@
 }
 
 @media(max-width:615px) {
-    .account-details .form-group>div:nth-child(3) {
+    .assets-details .form-group>div:nth-child(3),
+    .liability-details .form-group>div:nth-child(3),
+    .otherExpense-details .form-group>div:nth-child(3),
+    .existingCover-details .form-group>div:nth-child(3),
+    .assumptions-details .form-group>div:nth-child(3) {
         padding-left: 30px;
         /*padding-right: 148px;*/
     }
@@ -757,7 +769,6 @@
         font-weight: 500!important;
         font-size: 14pt!important;
     }
-
     .print-container .goal-perc strong,
     .print-container .goal-desc-shortfall strong,
     .print-container .goal-desc-almost strong,
@@ -765,8 +776,7 @@
     .print-container .goal-lines strong,
     .print-container .goal-lines,
     .print-container .goal-goal-m-values strong,
-    .print-container .goal-goal-values strong{
-        font-weight:500!important;
+    .print-container .goal-goal-values strong {
+        font-weight: 500!important;
     }
 }
-
