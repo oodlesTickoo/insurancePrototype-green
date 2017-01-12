@@ -38,6 +38,7 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
     $scope.ageChildren4 = 10;
     $scope.ageChildren5 = 10;
 
+     $scope.resultPerc = {};
 
 
     $scope.genderOption = true;
@@ -1528,7 +1529,7 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
                 document.getElementById("results").style.display = "block";
             }
 
-            
+
             grossAnnualIncome1 = $scope.newChangesApplied ? Number($scope.grossAnnualIncomeNew.replaceAll("$", "").replaceAll(",", "")) : Number($scope.grossAnnualIncome.replaceAll("$", "").replaceAll(",", ""));
             homeMortgage1 = Number($scope.homeMortgage.replaceAll("$", "").replaceAll(",", ""));
             investmentPropertyMortgage1 = Number($scope.investmentPropertyMortgage.replaceAll("$", "").replaceAll(",", ""));
@@ -1540,9 +1541,9 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
             cashAtBank1 = Number($scope.cashAtBank.replaceAll("$", "").replaceAll(",", ""));
             otherInvestment1 = Number($scope.otherInvestment.replaceAll("$", "").replaceAll(",", ""));
             superBalance1 = Number($scope.superBalance.replaceAll("$", "").replaceAll(",", ""));
-            ecLife1 = $scope.newChangesApplied ? Number($scope.ecLifeNew.replaceAll("$", "").replaceAll(",", "")) :Number($scope.ecLife.replaceAll("$", "").replaceAll(",", ""));
-            ecTPD1 = $scope.newChangesApplied ? Number($scope.ecTPDNew.replaceAll("$", "").replaceAll(",", "")): Number($scope.ecTPD.replaceAll("$", "").replaceAll(",", ""));
-            ecIP1 = $scope.newChangesApplied ? Number($scope.ecIPNew.replaceAll("$", "").replaceAll(",", "")): Number($scope.ecIP.replaceAll("$", "").replaceAll(",", ""));
+            ecLife1 = $scope.newChangesApplied ? Number($scope.ecLifeNew.replaceAll("$", "").replaceAll(",", "")) : Number($scope.ecLife.replaceAll("$", "").replaceAll(",", ""));
+            ecTPD1 = $scope.newChangesApplied ? Number($scope.ecTPDNew.replaceAll("$", "").replaceAll(",", "")) : Number($scope.ecTPD.replaceAll("$", "").replaceAll(",", ""));
+            ecIP1 = $scope.newChangesApplied ? Number($scope.ecIPNew.replaceAll("$", "").replaceAll(",", "")) : Number($scope.ecIP.replaceAll("$", "").replaceAll(",", ""));
             ecTrauma1 = $scope.newChangesApplied ? Number($scope.ecTraumaNew.replaceAll("$", "").replaceAll(",", "")) : Number($scope.ecTrauma.replaceAll("$", "").replaceAll(",", ""));
             funeralCost1 = Number($scope.funeralCost.replaceAll("$", "").replaceAll(",", ""));
             educationExpensePerYearPerChild1 = Number($scope.educationExpensePerYearPerChild.replaceAll("$", "").replaceAll(",", ""));
@@ -1688,16 +1689,59 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
 
             $scope.sfTrauma2 = Math.abs($scope.resultS2.trauma - ecTrauma1);
 
+            $scope.resultPerc.perc = 0;
+            $scope.resultPerc.diff = 0;
+            $scope.resultPerc.target = 0;
+            $scope.resultPerc.achieved = 0;
+
+
+            $scope.resultPerc.achieved = $scope.ecL + $scope.ecT + $scope.ecI + $scope.ecTr;
+
+            // $scope.resultPerc.achieved = $scope.resultPerc.achieved.toFixed(0);
+
+
             if ($scope.buyOption) {
                 ChartServiceHc.createChart('#containerB', 'Death Cover', ecLife1, $scope.resultS1.life, $scope.resultS2.life, false, true);
                 ChartServiceHc.createChart('#containerB2', 'TPD Cover', ecTPD1, $scope.resultS1.TPD, $scope.resultS2.TPD, false, true);
                 ChartServiceHc.createChart('#containerB3', 'Income Protection Cover', ecIP1, $scope.resultS1.IP, $scope.resultS2.IP, false, true);
                 ChartServiceHc.createChart('#containerB4', 'Trauma Cover', ecTrauma1, $scope.resultS1.trauma, $scope.resultS2.trauma, false, true);
+
+                $scope.resultPerc.target = $scope.resultS2.life + $scope.resultS2.TPD + $scope.resultS2.IP + $scope.resultS2.trauma;
+
+                if ($scope.resultPerc.achieved > $scope.resultPerc.target) {
+                    $scope.resultPerc.diff = $scope.resultPerc.achieved - $scope.resultPerc.target;
+                    $scope.resultPerc.perc = 100;
+                    $scope.surplusOption = true;
+                } else {
+                    $scope.resultPerc.diff = $scope.resultPerc.target - $scope.resultPerc.achieved;
+                    $scope.resultPerc.perc = 100 - (($scope.resultPerc.diff / $scope.resultPerc.target) * 100);
+                    $scope.resultPerc.perc = $scope.resultPerc.perc.toFixed(0);
+                    $scope.surplusOption = false;
+                }
+
+                $scope.mediumOption = $scope.resultPerc.perc > 75 ? true : false;
+                $timeout(0);
             } else {
                 ChartServiceHc.createChart('#containerB', 'Death Cover', ecLife1, $scope.resultS1.life, {}, false, false);
                 ChartServiceHc.createChart('#containerB2', 'TPD Cover', ecTPD1, $scope.resultS1.TPD, {}, false, false);
                 ChartServiceHc.createChart('#containerB3', 'Income Protection Cover', ecIP1, $scope.resultS1.IP, {}, false, false);
                 ChartServiceHc.createChart('#containerB4', 'Trauma Cover', ecTrauma1, $scope.resultS1.trauma, {}, false, false);
+
+                $scope.resultPerc.target = $scope.resultS1.life + $scope.resultS1.TPD + $scope.resultS1.IP + $scope.resultS1.trauma;
+
+                if ($scope.resultPerc.achieved > $scope.resultPerc.target) {
+                    $scope.resultPerc.diff = $scope.resultPerc.achieved - $scope.resultPerc.target;
+                    $scope.resultPerc.perc = 100;
+                    $scope.surplusOption = true;
+                } else {
+                    $scope.resultPerc.diff = $scope.resultPerc.target - $scope.resultPerc.achieved;
+                    $scope.resultPerc.perc = 100 - (($scope.resultPerc.diff / $scope.resultPerc.target) * 100);
+                    $scope.resultPerc.perc = $scope.resultPerc.perc.toFixed(0);
+                    $scope.surplusOption = false;
+                }
+
+                $scope.mediumOption = $scope.resultPerc.perc > 75 ? true : false;
+                $timeout(0);
             }
 
         } else {
