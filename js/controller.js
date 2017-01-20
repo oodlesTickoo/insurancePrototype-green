@@ -38,7 +38,7 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
     $scope.ageChildren4 = 10;
     $scope.ageChildren5 = 10;
 
-     $scope.resultPerc = {};
+    $scope.resultPerc = {};
 
 
     $scope.genderOption = true;
@@ -1695,7 +1695,7 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
             $scope.resultPerc.achieved = 0;
 
 
-            $scope.resultPerc.achieved = $scope.ecL + $scope.ecT + $scope.ecI + $scope.ecTr;
+            //$scope.resultPerc.achieved = $scope.ecL + $scope.ecT + $scope.ecI + $scope.ecTr;
 
             // $scope.resultPerc.achieved = $scope.resultPerc.achieved.toFixed(0);
 
@@ -1706,20 +1706,9 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
                 ChartServiceHc.createChart('#containerB3', 'Income Protection Cover', ecIP1, $scope.resultS1.IP, $scope.resultS2.IP, false, true);
                 ChartServiceHc.createChart('#containerB4', 'Trauma Cover', ecTrauma1, $scope.resultS1.trauma, $scope.resultS2.trauma, false, true);
 
-                $scope.resultPerc.target = $scope.resultS2.life + $scope.resultS2.TPD + $scope.resultS2.IP + $scope.resultS2.trauma;
+                //$scope.resultPerc.target = $scope.resultS2.life + $scope.resultS2.TPD + $scope.resultS2.IP + $scope.resultS2.trauma;
 
-                if ($scope.resultPerc.achieved > $scope.resultPerc.target) {
-                    $scope.resultPerc.diff = $scope.resultPerc.achieved - $scope.resultPerc.target;
-                    $scope.resultPerc.perc = 100;
-                    $scope.surplusOption = true;
-                } else {
-                    $scope.resultPerc.diff = $scope.resultPerc.target - $scope.resultPerc.achieved;
-                    $scope.resultPerc.perc = 100 - (($scope.resultPerc.diff / $scope.resultPerc.target) * 100);
-                    $scope.resultPerc.perc = $scope.resultPerc.perc.toFixed(0);
-                    $scope.surplusOption = false;
-                }
-
-                $scope.mediumOption = $scope.resultPerc.perc > 75 ? true : false;
+                $scope.tempResult = $scope.resultS2;
                 $timeout(0);
             } else {
                 ChartServiceHc.createChart('#containerB', 'Death Cover', ecLife1, $scope.resultS1.life, {}, false, false);
@@ -1727,22 +1716,58 @@ app.controller("TTRController", ['$scope', '$timeout', 'AgeCalculator', 'ChartSe
                 ChartServiceHc.createChart('#containerB3', 'Income Protection Cover', ecIP1, $scope.resultS1.IP, {}, false, false);
                 ChartServiceHc.createChart('#containerB4', 'Trauma Cover', ecTrauma1, $scope.resultS1.trauma, {}, false, false);
 
-                $scope.resultPerc.target = $scope.resultS1.life + $scope.resultS1.TPD + $scope.resultS1.IP + $scope.resultS1.trauma;
-
-                if ($scope.resultPerc.achieved > $scope.resultPerc.target) {
-                    $scope.resultPerc.diff = $scope.resultPerc.achieved - $scope.resultPerc.target;
-                    $scope.resultPerc.perc = 100;
-                    $scope.surplusOption = true;
-                } else {
-                    $scope.resultPerc.diff = $scope.resultPerc.target - $scope.resultPerc.achieved;
-                    $scope.resultPerc.perc = 100 - (($scope.resultPerc.diff / $scope.resultPerc.target) * 100);
-                    $scope.resultPerc.perc = $scope.resultPerc.perc.toFixed(0);
-                    $scope.surplusOption = false;
-                }
-
-                $scope.mediumOption = $scope.resultPerc.perc > 75 ? true : false;
+                //$scope.resultPerc.target = $scope.resultS1.life + $scope.resultS1.TPD + $scope.resultS1.IP + $scope.resultS1.trauma;
+                
+                $scope.tempResult = $scope.resultS1;
                 $timeout(0);
             }
+
+            if ($scope.ecL > $scope.tempResult.life) {
+                $scope.resultPerc.diffLife = $scope.ecL - $scope.tempResult.life;
+                $scope.resultPerc.percLife = 100;
+                $scope.surplusOptionLife = true;
+            } else {
+                $scope.resultPerc.diffLife = $scope.tempResult.life - $scope.ecL;
+                $scope.resultPerc.percLife = 100 - (($scope.resultPerc.diffLife / $scope.tempResult.life) * 100);
+                $scope.resultPerc.percLife = $scope.resultPerc.percLife.toFixed(0);
+                $scope.surplusOptionLife = false;
+            }
+            if ($scope.ecT > $scope.tempResult.TPD) {
+                $scope.resultPerc.diffTPD = $scope.ecT - $scope.tempResult.TPD;
+                $scope.resultPerc.percTPD = 100;
+                $scope.surplusOptionTPD = true;
+            } else {
+                $scope.resultPerc.diffTPD = $scope.tempResult.TPD - $scope.ecT;
+                $scope.resultPerc.percTPD = 100 - (($scope.resultPerc.diffTPD / $scope.tempResult.TPD) * 100);
+                $scope.resultPerc.percTPD = $scope.resultPerc.percTPD.toFixed(0);
+                $scope.surplusOptionTPD = false;
+            }
+            if ($scope.ecI > $scope.tempResult.IP) {
+                $scope.resultPerc.diffIP = $scope.ecI - $scope.tempResult.IP;
+                $scope.resultPerc.percIP = 100;
+                $scope.surplusOptionIP = true;
+            } else {
+                $scope.resultPerc.diffIP = $scope.tempResult.IP - $scope.ecI;
+                $scope.resultPerc.percIP = 100 - (($scope.resultPerc.diffIP / $scope.tempResult.IP) * 100);
+                $scope.resultPerc.percIP = $scope.resultPerc.percIP.toFixed(0);
+                $scope.surplusOptionIP = false;
+            }
+            if ($scope.ecTr > $scope.tempResult.trauma) {
+                $scope.resultPerc.diffTrauma = $scope.ecTr - $scope.tempResult.trauma;
+                $scope.resultPerc.percTrauma = 100;
+                $scope.surplusOptionTrauma = true;
+            } else {
+                $scope.resultPerc.diffTrauma = $scope.tempResult.trauma - $scope.ecTr;
+                $scope.resultPerc.percTrauma = 100 - (($scope.resultPerc.diffTrauma / $scope.tempResult.trauma) * 100);
+                $scope.resultPerc.percTrauma = $scope.resultPerc.percTrauma.toFixed(0);
+                $scope.surplusOptionTrauma = false;
+            }
+
+            $scope.mediumOptionLife = $scope.resultPerc.percLife > 75 ? true : false;
+            $scope.mediumOptionTPD = $scope.resultPerc.percTPD > 75 ? true : false;
+            $scope.mediumOptionIP = $scope.resultPerc.percIP > 75 ? true : false;
+            $scope.mediumOptionTrauma = $scope.resultPerc.percTrauma > 75 ? true : false;
+
 
         } else {
             $("#myModal").modal('show');

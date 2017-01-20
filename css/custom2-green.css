@@ -72,7 +72,8 @@ body {
 
 .assets-details .icon-container i,
 .otherExpense-details .icon-container i,
-.assumptions-details .icon-container i {
+.assumptions-details .icon-container i,
+.general-details-results .icon-container i {
     background-color: #61746b;
 }
 
@@ -84,12 +85,12 @@ body {
 
 .page-content .assets-details,
 .page-content .otherExpense-details,
-.page-content .assumptions-details {
+.page-content .assumptions-details,
+.general-details-results {
     background-color: #f3f5f4;
 }
 
-.general-details,
-.general-details-results {
+.general-details {
     background-color: #dbebc9;
 }
 
@@ -99,8 +100,8 @@ body {
     margin-top: 10px;
     font-size: 16px;
     display: block;
-    padding: 8px 0px;
-    width: 300px;
+        padding: 8px 16px;
+    width: auto;
     text-transform: uppercase;
     font-size: 22px;
     color: #424242;
@@ -456,7 +457,8 @@ input:-webkit-autofill {
 }
 
 #myModal1 .modal-footer button,
-#myModal2 .modal-footer button {
+#myModal2 .modal-footer button,
+#myModal3 .modal-footer button {
     font-weight: bold;
     font-size: 15px;
     height: 35px;
@@ -467,7 +469,8 @@ input:-webkit-autofill {
 }
 
 #myModal1 .modal-footer img,
-#myModal2 .modal-footer img {
+#myModal2 .modal-footer img,
+#myModal3 .modal-footer img {
     width: 30%;
     float: left;
 }
@@ -503,14 +506,16 @@ input:-webkit-autofill {
 
 @media (max-width: 767px) {
     #myModal1 .modal-footer button,
-    #myModal2 .modal-footer button {
+    #myModal2 .modal-footer button,,
+    #myModal3 .modal-footer button {
         font-weight: bold;
         height: 28px;
         margin-top: 6px;
         padding: 0 7px;
     }
     #myModal1 .modal-footer img,
-    #myModal2 .modal-footer img {
+    #myModal2 .modal-footer img,
+    #myModal3 .modal-footer img {
         width: 50%;
     }
     .modal-footer {
@@ -524,14 +529,16 @@ input:-webkit-autofill {
 
 @media (max-width: 425px) and (min-width:375px) {
     #myModal1 .modal-footer button,
-    #myModal2 .modal-footer button {
+    #myModal2 .modal-footer button,
+    #myModal3 .modal-footer button {
         font-weight: bold;
         height: 28px;
         margin-top: 14px;
         padding: 0 7px;
     }
     #myModal1 .modal-footer img,
-    #myModal2 .modal-footer img {
+    #myModal2 .modal-footer img,
+    #myModal3 .modal-footer img {
         width: 50%;
     }
     .modal-footer {
@@ -616,10 +623,10 @@ body {
 
 .assumptions-div label {
     color: #4a7295;
-    font-size: 20px;
+    font-size: 20px!important;
     font-weight: bold;
     padding-top: 10px;
-    float: right;
+    float: left;
     font-family: AgendaMedium;
 }
 
@@ -627,9 +634,15 @@ body {
     text-decoration: underline;
 }
 
-#myModal2 li {
-    padding-bottom: 10px;
+#myModal2 li,
+#myModal3 li {
+        padding-bottom: 0px;
     font-size: 15px;
+    font-weight: bold;
+}
+#myModal2 ul,
+#myModal3 ul {
+    padding-left:0;
 }
 
 .res-2,
@@ -707,4 +720,12 @@ body {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+}
+
+.col-text{
+    line-height: 22px;
+}
+
+.res-des{
+    line-height: 16px;
 }

@@ -41,8 +41,11 @@
                         </div>
                         <div class="row banner-wrapper display-table">
                             <div class="banner-text display-table-cell vertical-align-middle text-center">
-                                <h2>Are Your Savings Adequate?</h2>
-                                <p>The Insurance Adequacy Calculator is a tool designed to help you determine whether you and your partner's retirement savings will provide you the retirement that you both want to enjoy.</p>
+                                <h2>How much insurance cover should you have?</h2>
+                                <p>This insurance adequacy calculator is designed to help you discuss with your adviser the ideal level of cover that you should have to protect you and your family in the event of an illness or accident to provide you the financial assistance necessary.</p>
+                                <p>Our calculator will look at a number of scenarios including selling down assets to provide some cover that will complement the cover that you need.</p>
+                                <p>We also consider whether you should have the cover inside your superannuation fund or paid by you directly. This calculator will generate a general report but should not be considered advice. We encourage you to appoint our professional adviser to help you with selecting the best insurer and arranging the cover and managing any claims that may rise.</p>
+                                <p>You can consider a whole range of scenarios and what if’s.</p>
                             </div>
                             <div class="header-banner display-table-cell vertical-align-middle "><img src="images/header-image.jpg" class="img-responsive" alt=""></div>
                         </div>
@@ -571,7 +574,7 @@
                     </div>
                     <div class="row calculate-row contents">
                         <div class="col-xs-12">
-                            <button class="btn btn-primary btn-block submit-button" type="submit">Calculate Your Results</button>
+                            <button class="btn btn-primary btn-block submit-button" type="submit">Click here to see the results</button>
                         </div>
                     </div>
                 </form>
@@ -587,6 +590,11 @@
                     <div class="col-sm-9 col-xs-12 contents" >
                         <h2 class="hidden-xs heading">GENERAL ADVICE NOTICE:</h2>
                         <p class="sub-para">If you choose to use our calculators then you are doing so under the general advice rules. This will apply to your superannuation account as well as your savings without providing personal advice. If you want to enlist the services of an adviser that is able to construct a full financial plan for you then please click on the <strong>Your Feedback</strong> button on top of the page.</p>
+                        <div class="row assumptions-div">
+                            <div class="col-xs-12">
+                                <label data-toggle="modal" data-target="#myModal3" >Our Financial Service Guide 2017</label>
+                            </div>
+                        </div>
                     </div>                        
                 </div>
             </div>
@@ -606,25 +614,84 @@
                 <div class="row result-summary">
                     <div class="col1 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
                         <div class="col1-d1 img-responsive">
-                            <div>{{resultPerc.perc}} %</div>
+                            <div ng-show="chartOneOpen">{{resultPerc.percLife}} %</div>
+                            <div ng-show="chartTwoOpen">{{resultPerc.percTPD}} %</div>
+                            <div ng-show="chartThreeOpen">{{resultPerc.percIP}} %</div>
+                            <div ng-show="chartFourOpen">{{resultPerc.percTrauma}} %</div>
                         </div>
                         <div class="col1-d2">of your goal has been met</div>
                     </div>
                     <div class="col2 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
-                        <div>Your estimated insurance cover:</div>
-                        <div class="col2-d1">{{resultPerc.target|currency}}</div>
-                        <div>Your existing insurance cover:</div>
-                        <div class="col2-d2">{{resultPerc.achieved|currency}}</div>
+                        <div class="col-text" ng-show="chartOneOpen">Your ideal level of life insurance cover is:</div>
+                        <div class="col-text" ng-show="chartTwoOpen">Your ideal level of TPD cover is:</div>
+                        <div class="col-text" ng-show="chartThreeOpen">Your ideal level of income protection is:</div>
+                        <div class="col-text" ng-show="chartFourOpen">Your idel level of Trauma cover is:</div>
+                        <div class="col2-d1" ng-show="chartOneOpen">{{tempResult.life|currency}}</div>
+                        <div class="col2-d1" ng-show="chartTwoOpen">{{tempResult.TPD|currency}}</div>
+                        <div class="col2-d1" ng-show="chartThreeOpen">{{tempResult.IP|currency}}</div>
+                        <div class="col2-d1" ng-show="chartFourOpen">{{tempResult.trauma|currency}}</div>
+                        <div class="col-text" ng-show="chartOneOpen">Your current level of life insurance cover is:</div>
+                        <div class="col-text" ng-show="chartTwoOpen">Your current level of TPD is:</div>
+                        <div class="col-text" ng-show="chartThreeOpen">Your current level of income Protection is:</div>
+                        <div class="col-text" ng-show="chartFourOpen">You current level of Trauma insurance is:</div>
+                        <div class="col2-d2" ng-show="chartOneOpen">{{ecL|currency}}</div>
+                        <div class="col2-d2" ng-show="chartTwoOpen">{{ecT|currency}}</div>
+                        <div class="col2-d2" ng-show="chartThreeOpen">{{ecI|currency}}</div>
+                        <div class="col2-d2" ng-show="chartFourOpen">{{ecTr|currency}}</div>
                         <div class="line-divider"></div>
-                        <div ng-show="!surplusOption"><i class="fa fa-exclamation-circle"></i>You still need to save:</div>
-                        <div ng-show="surplusOption"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
-                        <div class="col2-d3">{{resultPerc.diff|currency}}</div>
+                        <div class="col-text" ng-show="!surplusOptionLife && chartOneOpen"><i class="fa fa-exclamation-circle"></i>You need to top up your Life insurance by:</div>
+                        <div class="col-text" ng-show="!surplusOptionTPD && chartTwoOpen"><i class="fa fa-exclamation-circle"></i>You need to top up your TPD insurance by:</div>
+                        <div class="col-text" ng-show="!surplusOptionIP && chartThreeOpen"><i class="fa fa-exclamation-circle"></i>You need to top up your IP insurance by:</div>
+                        <div class="col-text" ng-show="!surplusOptionTrauma && chartFourOpen"><i class="fa fa-exclamation-circle"></i>You need to top up your Trauma insurance by:</div>
+                        <div class="col-text" ng-show="surplusOptionLife && chartOneOpen"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
+                        <div class="col-text" ng-show="surplusOptionTPD && chartTwoOpen"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
+                        <div class="col-text" ng-show="surplusOptionIP && chartThreeOpen"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
+                        <div class="col-text" ng-show="surplusOptionTrauma && chartFourOpen"><i class="fa fa-exclamation-circle"></i>You have a surplus of:</div>
+                        <div class="col2-d3" ng-show="chartOneOpen">{{resultPerc.diffLife|currency}}</div>
+                        <div class="col2-d3" ng-show="chartTwoOpen">{{resultPerc.diffTPD|currency}}</div>
+                        <div class="col2-d3" ng-show="chartThreeOpen">{{resultPerc.diffIP|currency}}</div>
+                        <div class="col2-d3" ng-show="chartFourOpen">{{resultPerc.diffTrauma|currency}}</div>
                     </div>
                     <div class="col3 col-xs-12 col-sm-4 col-md-4 col-lg-4" >
-                        <div class="col3-d1" ng-show="!surplusOption && !mediumOption"><strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong></div>
-                        <div class="col3-d1" ng-show="!surplusOption && mediumOption"><strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.</div>
-                        <div class="col3-d1" ng-show="surplusOption"><strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.</div>
-                        <div class="col3-d2"><strong>Speak with an advisor today</strong> to find out how your age and lifestyle can affect your savings plan.</div>
+                        <div class="col3-d1" ng-show="!surplusOptionLife && !mediumOptionLife && chartOneOpen">
+                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionLife && mediumOptionLife && chartOneOpen">
+                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                        </div>
+                        <div class="col3-d1" ng-show="surplusOptionLife && chartOneOpen">
+                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionTPD && !mediumOptionTPD && chartTwoOpen">
+                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionTPD && mediumOptionTPD && chartTwoOpen">
+                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                        </div>
+                        <div class="col3-d1" ng-show="surplusOptionTPD && chartTwoOpen">
+                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionIP && !mediumOptionIP && chartThreeOpen">
+                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionIP && mediumOptionIP && chartThreeOpen">
+                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                        </div>
+                        <div class="col3-d1" ng-show="surplusOptionIP && chartThreeOpen">
+                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionTrauma && !mediumOptionTrauma && chartFourOpen">
+                            <strong>You’ve got some more saving to do.</strong>You will need to <strong>contribute more</strong> in order to reach your <strong>retirement savings goal.</strong>
+                        </div>
+                        <div class="col3-d1" ng-show="!surplusOptionTrauma && mediumOptionTrauma && chartFourOpen">
+                            <strong>You’re almost there!</strong> You will need to <strong>contribute a little more</strong> to your retirement savings or work a little longer.
+                        </div>
+                        <div class="col3-d1" ng-show="surplusOptionTrauma && chartFourOpen">
+                            <strong>Your savings are right on track!</strong> Looks like you’re on track to reach your retirement savings goal.
+                        </div>
+                        <div class="col3-d2">
+                            <strong>Speak with an advisor today</strong> to find out how your age and lifestyle can affect your savings plan.
+                        </div>
                     </div>
                 </div>
                 <div class="row result-details boxes" >
@@ -1013,7 +1080,7 @@
                                 </div>
                                 <div class="row assumptions-div">
                                     <div class="col-xs-12">
-                                        <label data-toggle="modal" data-target="#myModal2" >Assumptions</label>
+                                        <label data-toggle="modal" data-target="#myModal2" >More important information on Insurance policies</label>
                                     </div>
                                 </div>
                             </div>
@@ -1042,6 +1109,11 @@
                     <div class="col-sm-9 col-xs-12 contents" >
                         <h2 class="hidden-xs heading">GENERAL ADVICE NOTICE:</h2>
                         <p class="sub-para">If you choose to use our calculators then you are doing so under the general advice rules. This will apply to your superannuation account as well as your savings without providing personal advice. If you want to enlist the services of an adviser that is able to construct a full financial plan for you then please click on the <strong>Your Feedback</strong> button on top of the page.</p>
+                        <div class="row assumptions-div">
+                            <div class="col-xs-12">
+                                <label data-toggle="modal" data-target="#myModal3" >Our Financial Service Guide 2017</label>
+                            </div>
+                        </div>
                     </div>                        
                 </div>
             </div>
@@ -1099,6 +1171,125 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Our Financial Service Guide 2017</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ol>
+                            <li>
+                                What advice services can I expect to receive?
+                            </li>
+                            <ul>
+                                This FSG covers Findmysuper, Financial Choice Pty Ltd, Life Cover Online, and the web site <a href="www.findmybestsuper.com.au">www.findmybestsuper.com.au</a> 
+                                Our business is a non-advice search and consolidation service for superannuation members.
+                                We can also provide you with access to research on various superannuation accounts. If you would like financial planning
+                                advice then we are happy to provide you with scaled advice for a fee based on time and outgoings.
+                                Financial Choice Pty Ltd was established as a professional, specialist company in 1996 with the objective of assisting
+                                superannuation members to locate and consolidate accounts that appear in their name. We are not aligned with any banks
+                                or financial institutions and you are entitled to ask us what type of advice we may provide, what are the applicable charges for
+                                our services, how the Financial Choice representatives are remunerated, any conflicts of interest we may have and what are
+                                your rights if you have a complaint about our services.
+                            </ul>
+                            <li>
+                                What does our Australian Financial Services Licence allow us to do?
+                            </li>
+                            <ul>
+                                Under the terms of our licence, we can provide financial product advice for the following classes of financial products: Basic deposit
+                                products, general insurance products, life insurance products, managed investment schemes, retirement savings accounts,
+                                securities, superannuation and dealing in a financial product on behalf of another person. Arrange to deal in Superannuation,
+                                Retirement savings accounts, life products including investment and risk. Once we receive your completed application a search
+                                and consolidation we will send you the application and roll over forms for the fund that you have nominated in your application.
+                            </ul>
+                            <li>
+                                How are we paid for the services that we provide?
+                            </li>
+                            <ul>
+                                We charge a fee for a superannuation search and consolidation service. We charge a fee for scaled advice for the generation
+                                of a statement of advice. This fee is paid in advance before we make a recommendation. If you do not provide full information
+                                then it will be impossible to generate an advice document for you. Our fees are competitively priced ensuring that you
+                                get value for money. Some Superannuation funds pay a service fee to a holder of a financial services licence to provide
+                                ongoing services to their members. Financial Choice Pty Ltd may receive such a fee or commission from time to time as the
+                                authorised representative of your account. In cases where a fee is not paid then we will invoice you our client a fee for our
+                                service. Please refer to our current fee schedule available from our websites, www.findmysuper.com.au, financialchoice.com.au,
+                                findmybestsuper.com.au, lifecoveronline.com.au or by contacting the office.
+                                Information provided by Financial Choice Pty Ltd is general financial advice only. General advice is defined under the new
+                                regulations to include information about financial products and financial markets and our current views and outlook for those
+                                products and markets. The general advice we provide includes the information you have requested from the FMS website
+                                www.findmysuper.com.au, and the www.findmybestsuper.com.au information that you have requested from Financial Choice,
+                                or discussed with an Financial Choice representative or obtained from a Financial Choice brochure. Because this information is
+                                being provided to retail clients, we are required by law to issue this Financial Services Guide.
+                                You should, before acting upon any of the information or general advice provided by us, consider the appropriateness of
+                                the advice in light of your own objectives, financial situation or needs. You should consult your own personal financial adviser
+                                before making any decision. If you are considering setting up a superannuation fund or investing in any product, you should
+                                read and ensure you understand the appropriate product disclosure statements (PDS) before investing.
+                            </ul>
+                            <li>
+                                How are our staff and representatives paid?
+                            </li>
+                            <ul>
+                                All staff receive salary and other benefits including incentives for meeting certain revenue targets. Financial Choice Pty Ltd
+                                may receive commissions or brokerage in relation to financial products. These commissions will be separately disclosed to all
+                                customers as required by legislation.
+                            </ul>
+                            <li>
+                                What should you do if you have a complaint?
+                            </li>
+                            <ul>
+                                Financial Choice Pty Ltd is a member of the Financial Ombudsman Service (FOS). If you have a complaint about our services please
+                                tell us. We endeavour to resolve any complaints within 20 days. If your complaint cannot be resolved to your satisfaction, you have a
+                                right to refer your complaint to FOS. You can contact FOS on 1300 780 808 or write to GPO Box 3, Melbourne Victoria 3001.
+                            </ul>
+                            <li>
+                                What documents should I receive when seeking financial product advice?
+                            </li>
+                            <ul>
+                                Depending on the nature of the advice sought, you should receive:
+                                1. Financial Services Guide (FSG). The FSG will describe the type of services provided.
+                                2. Statement of Advice (SOA). A Statement of Advice must be provided where the adviser is giving personal financial advice.
+                                Personal advice is provided after taking into account your particular objectives, financial situation and needs. A SOA is
+                                a record the personal advice provided to you and includes information on the basis on which the advice is given, fees
+                                and commission and any interests or associations that might influence the advice.
+                                3. Product Disclosure Statement (PDS). An issuer of a financial product must provide a PDS providing information about
+                                the financial product, which will assist you in making an informed decision about the product. You should always read
+                                the PDS before investing to make sure the product is suitable for your needs.
+                            </ul>
+                            <li>
+                                General advice warning
+                            </li>
+                            <ul>
+                                This brochure and the links within the Financial Choice website may contain general advice about a product on our list contained
+                                on the web site when you registered. It is up to you to decide if the product or service being discussed is appropriate to your
+                                specific needs. We will recommend that you switch existing super funds into a product based your priorities and objectives
+                                by completing our questionnaire on the web site. We may ask for additional information to assist in our recommendation. If
+                                you do not provide the requested information then you risk investing in a product that is not appropriate. Under the new laws
+                                we have an obligation to provide advice in your best interest, not ours. We need to collect accurate information to make a full
+                                recommendation so we ask you to cooperate to guarantee accuracy.
+                            </ul>
+                            <li>
+                                Disclosure of commission
+                            </li>
+                            <ul>
+                                Whilst we operate on a fee for service basis, we may be entitled to servicing fees from legacy products where we are the registered adviser or licence holder. This fee may vary but we will endeavour to disclose that. We are not entitled to receive
+                                investment commission on new superannuation products from July 2013. We are entitled to receive group insurance
+                                commission of between 1% and 27.5% of the premium on superannuation products.
+                                We may be entitled to a servicing fee equivalent to between 0.20% and 0.67% of your account balance payable by the fund
+                                manager directly to us in recognition of you nominating Financial Choice Pty Ltd as your representative.
+                                If we do not receive this fee then we will invoice you to cover our administration expenses.
+                                Financial Choice Pty Ltd maintains adequate professional indemnity insurance through the Financial Planning Association
+                                group insurance plan with Jardine Thompson.
+                            </ul>                           
+                        </ol>
+                    </div>
+                    <div class="modal-footer">
+                        <img src="images/client-logo.png">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -1108,41 +1299,58 @@
                     <div class="modal-body">
                         <ol>
                             <li>
-                                The Superannuation Guarantee (SG) contribution is at the rate of 9.5% of ordinary time earnings.
+                                Am I locked into the cover for a certain period?
                             </li>
+                            <ul>
+                                No. The policy that you establish can be cancelled at any time without any penalties.
+                            </ul>
                             <li>
-                                The tax rate for taxable income of superannuation in accumulation phase is 15%, including on concessional contributions and income generated.
+                                Can the Insurance Company cancel my policy due to my health?
                             </li>
+                            <ul>
+                                No, the insurance company cannot cancel your policy due to a change in your health. (Unless you fail to disclose details at the application stage)
+                            </ul>
                             <li>
-                                Members will convert the accumulation balance into pension at the nominated pension start age. All contributions will be converted into the pension at the beginning of the next financial year.
+                                Am I covered whilst travelling overseas?
                             </li>
+                            <ul>
+                                Yes, all of our insurance products provide cover 24 hours a day, wherever you are in the world.
+                            </ul>
                             <li>
-                                Salaries are indexed at the wage index level if there is any.
+                                How do the different policies you have quoted compare?
                             </li>
+                            <ul>
+                                We aim to provide clients with as much choice as possible and show the premiums of various companies for various levels of cover. With term life insurance is it purely cost based, as all companies will pay when you die. Trauma and Income Protection policies will vary between companies. We can provide specific comparisons if you wish.
+                            </ul>
                             <li>
-                                Member is able to select the base pension drawdown amount or just withdraw the minimum. If member nominates their own pension drawdown strategy, the annual drawdown will be indexed at CPI level.
+                                Does the policy have a cash value?
                             </li>
+                            <ul>
+                                The only policies that have a cash value are older style whole of life policies or a money-back life policy. These are generally very expensive and only a couple of companies still offer them. What we have quoted is term life cover, which does not have a cash value.
+                            </ul>
                             <li>
-                                Investment earnings are uniformly distributed over the financial year.
+                                How do I pay my premiums?
                             </li>
+                            <ul>
+                                Companies offer the choice of 3 methods of payment (monthly, half yearly or annually):
+                                • Direct debit
+                                • Credit card
+                                • Cheque (not available for monthly)
+                            </ul>
                             <li>
-                                SG, pension drawdowns, fees and insurance premiums are received or paid in the middle of each financial year.
+                                Do I need to have a Medical examination before taking out a policy?
                             </li>
+                            <ul>
+                                Most people do not require a medical for establishment of cover. Whether you will need any blood test or medical requirements will be determined by your age and the amount of cover that you apply for. The life company will pay for any medical requirements and we arrange these for you. In most cases we can send a nurse to see you to complete the tests if the company requires you to have them. That way the process is as quick and simple as possible.
+                            </ul>
                             <li>
-                                Tax is paid at the end of each financial year.
+                                Are there any tax implications?
                             </li>
-                            <li>
-                                The age pension entitlements are calculated under the current new deeming rules, taking into consideration the income test and asset test. Note the calculation of age pension needs to be altered if the standard/criterial is updated by the Centrelink.
-                            </li>
-                            <li>
-                                The deeming rate is maintained at the current deeming rate according to the Centrelink website for the entirety of the projected period.
-                            </li>
-                            <li>
-                                There is no change in personal assets or circumstances.
-                            </li>
-                            <li>
-                                The age pension supplement is assumed to be at the maximum level if there is any.
-                            </li>                            
+                            <ul>
+                                If a Term Life policy is written through a superannuation fund, the premiums are a tax Deduction to the superannuation fund. Taxation of death benefits depends on whether the benefits are paid to a dependent, non-dependent or to the Trustee of the deceased's estate, and the total amount in superannuation.
+                                If a Term Life policy is not written through a superannuation fund, the premiums are not tax deductible and any proceeds recovered are not considered to be assessable income.
+                                However, everyone's circumstances are different, and we are not tax advisers. You should seek taxation advice from an independent tax adviser.
+                            </ul>                           
                         </ol>
                     </div>
                     <div class="modal-footer">
